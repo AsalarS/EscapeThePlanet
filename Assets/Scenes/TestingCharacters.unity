@@ -227,7 +227,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &145123383
 GameObject:
@@ -321,7 +321,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1001 &224429148
 PrefabInstance:
@@ -385,7 +385,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 151b0b4f4125a4d48aff27e654397222, type: 2}
     - target: {fileID: 5866666021909216657, guid: 2222b7183b767414492458c53c653b0b, type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -495,7 +495,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1358797866
 PrefabInstance:
@@ -559,7 +559,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: b519999ba3f9af543843e72b906226e8, type: 2}
     - target: {fileID: 5866666021909216657, guid: 7368d3ec50861594b971fe0a8083b642, type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -670,7 +670,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: -51.05, y: 0, z: 0}
 --- !u!1001 &1518514370
 PrefabInstance:
@@ -682,7 +682,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 92b211c82eea1b94aa3c03475fad85c0, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 92b211c82eea1b94aa3c03475fad85c0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -728,8 +728,81 @@ PrefabInstance:
       propertyPath: m_Name
       value: Alien Solder
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 92b211c82eea1b94aa3c03475fad85c0, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 67458c4624f89ca4fa789a9a1a277a23, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92b211c82eea1b94aa3c03475fad85c0, type: 3}
+--- !u!1001 &1677705664
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 7c5ed954ee6a4c6408def3b6e2d6cb78, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7c5ed954ee6a4c6408def3b6e2d6cb78, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.5575353
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7c5ed954ee6a4c6408def3b6e2d6cb78, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.00000011920929
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7c5ed954ee6a4c6408def3b6e2d6cb78, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 6.3469615
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7c5ed954ee6a4c6408def3b6e2d6cb78, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7c5ed954ee6a4c6408def3b6e2d6cb78, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7c5ed954ee6a4c6408def3b6e2d6cb78, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7c5ed954ee6a4c6408def3b6e2d6cb78, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7c5ed954ee6a4c6408def3b6e2d6cb78, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7c5ed954ee6a4c6408def3b6e2d6cb78, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7c5ed954ee6a4c6408def3b6e2d6cb78, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7c5ed954ee6a4c6408def3b6e2d6cb78, type: 3}
+      propertyPath: m_Name
+      value: Parasite L Starkie
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 7c5ed954ee6a4c6408def3b6e2d6cb78, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 9ad1f905124ae284f8e116e4824026e3, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 7c5ed954ee6a4c6408def3b6e2d6cb78, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7c5ed954ee6a4c6408def3b6e2d6cb78, type: 3}
