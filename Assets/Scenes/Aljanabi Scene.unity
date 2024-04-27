@@ -848,6 +848,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 92b211c82eea1b94aa3c03475fad85c0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1871341543}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 92b211c82eea1b94aa3c03475fad85c0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1871341545}
   m_SourcePrefab: {fileID: 100100000, guid: 92b211c82eea1b94aa3c03475fad85c0, type: 3}
 --- !u!1 &1354450891
 GameObject:
@@ -1318,6 +1321,22 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.88, z: 0}
+--- !u!114 &1871341545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279477397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cadfabb35793aa542909b483ec4b4cb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  chipSpeed: 2
+  frontHealthBar: {fileID: 947831526}
+  backHealthBar: {fileID: 717913518}
 --- !u!1 &2118470167
 GameObject:
   m_ObjectHideFlags: 0
