@@ -14,7 +14,6 @@ public class Path : MonoBehaviour
     private bool drawNumbers;
     public Color debugColour = Color.white;
 
-#if UNITY_EDITOR
     public void OnDrawGizmos()
     {
         if (alwaysDrawPath)
@@ -50,5 +49,5 @@ public class Path : MonoBehaviour
         else
             DrawPath();
     }
-#endif
+
 }
