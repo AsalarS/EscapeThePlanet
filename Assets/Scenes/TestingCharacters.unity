@@ -4347,7 +4347,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 352d0637b4f2cd04faf01066b1be674e, type: 2}
     - target: {fileID: 5866666021909216657, guid: 5de85226c49082a41b3c27ba9c25f809, type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
