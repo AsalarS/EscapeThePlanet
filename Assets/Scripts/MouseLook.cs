@@ -5,7 +5,8 @@ using UnityEngine;
 public class MouseLook : MonoBehaviour
 {
     public float mouseSensitivity = 100f;
-    public Transform playerBody;
+    public Transform playerBody; // This variable needs to be assigned in the Inspector
+
     float xRotation = 0f;
 
     // Start is called before the first frame update
@@ -17,14 +18,21 @@ public class MouseLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float mouseX  = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY  = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-        
-      
+
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        playerBody.Rotate(Vector3.up * mouseX);
+
+        if (playerBody != null) // Check if playerBody is assigned before using it
+        {
+            playerBody.Rotate(Vector3.up * mouseX);
+        }
+        else
+        {
+            Debug.LogWarning("Player body is not assigned in the Inspector. Please assign it to the MouseLook script.");
+        }
     }
 }

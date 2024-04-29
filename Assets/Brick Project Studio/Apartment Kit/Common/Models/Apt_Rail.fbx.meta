@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Brick Project Studio/Apartment Kit/Common/Models/Apt_Kit_01.fbx.meta
+guid: 029f41e16736f6748aaef88756550986
+========
 guid: 7c69e40725f2d1a4687ecf3e80b2dfac
+>>>>>>>> main:Assets/Brick Project Studio/Apartment Kit/Common/Models/Apt_Rail.fbx.meta
 ModelImporter:
   serializedVersion: 20300
   internalIDToNameTable: []
