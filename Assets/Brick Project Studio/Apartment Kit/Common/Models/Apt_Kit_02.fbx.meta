@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Brick Project Studio/Apartment Kit/Common/Models/Apt_Furniture_01.fbx.meta
+guid: ab034633face59b46a70e6f2bc5ed878
+========
 guid: c31198774d98d9f43be2ca79cb0a84dc
+>>>>>>>> main:Assets/Brick Project Studio/Apartment Kit/Common/Models/Apt_Kit_02.fbx.meta
 ModelImporter:
   serializedVersion: 20300
   internalIDToNameTable: []
