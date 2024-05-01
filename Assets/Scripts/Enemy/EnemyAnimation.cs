@@ -10,8 +10,8 @@ public class EnemyAnimation : MonoBehaviour
     public float maxHealth = 100f; //full health
     public float lowHealth = 20f; //critical health
     public float takedownRange = 2f; //the range of the takedown initial
-    public Animator enemyAnimator; //enemy animator reference
-    public Animator playerAnimator; //player animator reference
+    Animator enemyAnimator; //enemy animator reference
+    Animator playerAnimator; //player animator reference
     public float currentHealth;//enemy's current health
     private bool isStaggered; //a boolean to check when the enemy reached critical state
     public Transform[] transferTargets; //for transfering the player to the correct position
@@ -19,12 +19,21 @@ public class EnemyAnimation : MonoBehaviour
     
     private bool isAnimating = false; //to prevent multiple takedowns in the same place
 
+    public Rigidbody[] ragdollRigidbodies; // Array of rigidbodies representing the enemy's body parts
+    public float launchForce = 100f; // The force applied to launch the enemy
+
+    private bool isRagdollActive = false;
+
     // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;
         isStaggered = false;
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();//get player component
+        playerAnimator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();//get player component
+        enemyAnimator = GetComponent<Animator>();
+        // Disable the ragdoll initially
+        SetRagdollActive(false);
     }
 
     // Update is called once per frame
@@ -36,15 +45,15 @@ public class EnemyAnimation : MonoBehaviour
         }
         if (isStaggered)
         {
-            enemyAnimator.SetBool("IsStaggered", true); //start the staggered animation
+            enemyAnimator.SetBool("IsStaggered", isStaggered); //start the staggered animation
         }
         if (isStaggered && Input.GetKeyDown("q") && !isAnimating) // if the enemy is stagered and the takedown button is pressed
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player"); //find the player object
             if (player != null && IsPlayerInRange(player.transform)) //check if player in range
             {
-                PerformTakedown(player.transform); //initiate the takedown
-                Transform nearestTarget = GetNearestTransferTarget(playerController.transform.position); 
+                (string nearestTargetName, Transform nearestTarget) = GetNearestTransferTarget(playerController.transform.position);
+                PerformTakedown(player.transform,nearestTargetName); //initiate the takedown
                 if (nearestTarget != null)
                 {
                     //disable the controller for the player,
@@ -68,11 +77,30 @@ public class EnemyAnimation : MonoBehaviour
     /// Initiate the takedown animations for both, player and enemy
     /// </summary>
     /// <param name="player"></param>
-    void PerformTakedown(Transform player)
+    void PerformTakedown(Transform player,string targetName)
     {
-
-        enemyAnimator.SetTrigger("Takedown"); //play enemy animation
-        playerAnimator.SetTrigger("Takedown"); //play player animation
+        switch (targetName)
+        {
+            case "Front":
+        enemyAnimator.SetTrigger("Front Takedown"); //play enemy animation
+        playerAnimator.SetTrigger("Alien Front Takedown"); //play player animation
+                break;
+            case "Left":
+        enemyAnimator.SetTrigger("Left Takedown"); //play enemy animation
+        playerAnimator.SetTrigger("Alien Left Takedown"); //play player animation
+                break;
+            case "Right":
+        enemyAnimator.SetTrigger("Right Takedown"); //play enemy animation
+        playerAnimator.SetTrigger("Alien Right Takedown"); //play player animation
+                break;
+            case "Back":
+        enemyAnimator.SetTrigger("Back Takedown"); //play enemy animation
+        playerAnimator.SetTrigger("Alien Back Takedown"); //play player animation
+                break;
+            default: 
+                Debug.Log("Error: name is not found: "+ targetName);
+                break;
+        }
 
     }
     /// <summary>
@@ -83,8 +111,9 @@ public class EnemyAnimation : MonoBehaviour
     /// <param name="playerPosition"></param>
     /// <returns>The position of the target for player to transform to</returns>
     
-    private Transform GetNearestTransferTarget(Vector3 playerPosition)
+    private (string,Transform) GetNearestTransferTarget(Vector3 playerPosition)
     {
+        string nearestTargetName = string.Empty;
         Transform nearestTarget = null;
         float nearestDistance = float.MaxValue;
 
@@ -96,10 +125,11 @@ public class EnemyAnimation : MonoBehaviour
             {
                 nearestDistance = distance;
                 nearestTarget = target;
+                nearestTargetName = target.name;
             }
         }
 
-        return nearestTarget;
+        return (nearestTargetName, nearestTarget);
     }
     
     /// <summary>
@@ -112,12 +142,54 @@ public class EnemyAnimation : MonoBehaviour
         float distance = Vector3.Distance(transform.position, playerTransform.position); 
         return distance <= takedownRange;
     }
+
+    /// <summary>
+    /// Increase enemy health if left unanswered
+    /// </summary>
+    public void OnStaggerAnimationEnd()
+    {
+        isStaggered = false;
+        enemyAnimator.SetBool("IsStaggered", isStaggered); //stop the staggered animation
+        currentHealth += 75;
+    }
     
     /// <summary>
     /// disable the script
     /// </summary>
     public void Die()
     {
+
         enabled = false;
+    }
+
+
+
+    public void ActivateRagdollAndLaunch()
+    {
+        // Activate the ragdoll physics
+        SetRagdollActive(true);
+
+        // Apply a launch force to the enemy
+        Vector3 launchDirection = transform.forward; // Example: Launch in the forward direction of the enemy's transform
+        foreach (Rigidbody rb in ragdollRigidbodies)
+        {
+            rb.AddForce(launchDirection * launchForce, ForceMode.Impulse);
+        }
+    }
+
+    private void SetRagdollActive(bool isActive)
+    {
+        // Enable or disable the ragdoll rigidbodies
+        foreach (Rigidbody rb in ragdollRigidbodies)
+        {
+            rb.isKinematic = !isActive;
+        }
+
+        isRagdollActive = isActive;
+    }
+    private void Awake()
+    {
+        // Automatically populate the ragdollRigidbodies array with the rigidbody components of the enemy's body parts
+        ragdollRigidbodies = GetComponentsInChildren<Rigidbody>();
     }
 }
