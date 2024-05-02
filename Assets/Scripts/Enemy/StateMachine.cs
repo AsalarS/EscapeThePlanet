@@ -5,11 +5,9 @@ using UnityEngine;
 public class StateMachine : MonoBehaviour
 {
     public BaseState activeState;
-    public PetrolState petrolState;
     public void Initialize()
     {
-        petrolState = new PetrolState();
-        ChangeState(petrolState);
+        ChangeState(new PetrolState());
     }
     // Start is called before the first frame update
     void Start()

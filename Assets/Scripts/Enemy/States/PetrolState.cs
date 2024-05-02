@@ -5,8 +5,7 @@ using UnityEngine;
 public class PetrolState : BaseState
 {
     private int wayPointIndex = 0; // Initialize waypoint index
-    private float waitTime = 3f; // Time to wait at each waypoint
-    private float elapsedTime = 0f; // Time elapsed since reaching the waypoint
+    private float waitTime; // Time to wait at each waypoint
 
     public override void Enter()
     {
@@ -16,21 +15,10 @@ public class PetrolState : BaseState
 
     public override void Perform()
     {
-        // Check if the agent has reached the current waypoint
-        if (enemy.Agent.remainingDistance < 0.2f)
+        PetrolCycle();
+        if (enemy.CanSeePlayer())
         {
-            // Increment the elapsed time
-            elapsedTime += Time.deltaTime;
-
-            // Check if the agent has waited long enough
-            if (elapsedTime >= waitTime)
-            {
-                // Move to the next waypoint
-                MoveToNextWaypoint();
-
-                // Reset the elapsed time
-                elapsedTime = 0f;
-            }
+            stateMachine.ChangeState(new AttackState());
         }
     }
 
@@ -39,25 +27,51 @@ public class PetrolState : BaseState
         // Clean up any state exit tasks (if needed)
     }
 
-    private void MoveToNextWaypoint()
-    {
-        // Increment the waypoint index
-        wayPointIndex++;
+    //private void MoveToNextWaypoint()
+    //{
+    //    // Increment the waypoint index
+    //    wayPointIndex++;
 
-        // Check if the waypoint index exceeds the number of waypoints
-        if (wayPointIndex >= enemy.path.waypoints.Count)
-        {
-            // If it does, reset the waypoint index to 0 (loop back to the beginning)
-            wayPointIndex = 0;
-        }
+    //    // Check if the waypoint index exceeds the number of waypoints
+    //    if (wayPointIndex >= enemy.path.waypoints.Count)
+    //    {
+    //        // If it does, reset the waypoint index to 0 (loop back to the beginning)
+    //        wayPointIndex = 0;
+    //    }
 
-        // Set the destination to the next waypoint
-        SetNextDestination();
-    }
+    //    // Set the destination to the next waypoint
+    //    SetNextDestination();
+    //}
 
     private void SetNextDestination()
     {
         // Set the agent's destination to the position of the next waypoint
         enemy.Agent.SetDestination(enemy.path.waypoints[wayPointIndex].position);
+    }
+
+    private void PetrolCycle()
+    {
+        // Check if the agent has reached the current waypoint
+        if (enemy.Agent.remainingDistance < 0.2f)
+        {
+            // Increment the elapsed time
+            waitTime += Time.deltaTime;
+
+            // Check if the agent has waited long enough
+            if (waitTime > 3)
+            {
+                // Move to the next waypoint
+                if (wayPointIndex < enemy.path.waypoints.Count - 1)
+                
+                    wayPointIndex++;
+                else
+                    wayPointIndex = 0;
+                enemy.Agent.SetDestination(enemy.path.waypoints[wayPointIndex].position);
+                waitTime = 0;
+                
+               
+            }
+        }
+
     }
 }
