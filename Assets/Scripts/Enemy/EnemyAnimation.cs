@@ -158,25 +158,34 @@ public class EnemyAnimation : MonoBehaviour
     /// </summary>
     public void Die()
     {
-
+        enemyAnimator.enabled = false;
+        SetRagdollActive(true);
         enabled = false;
     }
 
 
-
+    /// <summary>
+    /// A function used by an animation to launch the enemy
+    /// </summary>
     public void ActivateRagdollAndLaunch()
     {
+        
         // Activate the ragdoll physics
         SetRagdollActive(true);
-
+        enemyAnimator.enabled = false;
         // Apply a launch force to the enemy
         Vector3 launchDirection = transform.forward; // Example: Launch in the forward direction of the enemy's transform
         foreach (Rigidbody rb in ragdollRigidbodies)
         {
             rb.AddForce(launchDirection * launchForce, ForceMode.Impulse);
         }
+        Die();
     }
 
+    /// <summary>
+    /// Activate or deactivate the ragdoll component on the enemy body
+    /// </summary>
+    /// <param name="isActive"></param>
     private void SetRagdollActive(bool isActive)
     {
         // Enable or disable the ragdoll rigidbodies
