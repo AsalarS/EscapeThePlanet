@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public float lifespan = 5f; // Increased lifespan of the bullet in seconds
+
     public void OnCollisionEnter(Collision collision)
     {
         // Get the GameObject reference from the collision
@@ -36,7 +38,16 @@ public class Bullet : MonoBehaviour
             Debug.Log("Bullet hit something else.");
         }
 
-        // Destroy the bullet GameObject after collision
+        // Start coroutine to destroy the bullet after a specified duration
+        StartCoroutine(DestroyBulletAfterDelay());
+    }
+
+    private IEnumerator DestroyBulletAfterDelay()
+    {
+        // Wait for the specified duration
+        yield return new WaitForSeconds(lifespan);
+
+        // Destroy the bullet GameObject
         Destroy(gameObject);
     }
 }
