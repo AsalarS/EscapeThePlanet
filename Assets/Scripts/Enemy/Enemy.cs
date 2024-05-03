@@ -9,17 +9,28 @@ public class Enemy : MonoBehaviour
 {
     private StateMachine stateMachine;
     private NavMeshAgent agent;
-    public NavMeshAgent Agent { get => agent; }
-
-    //This is for debugging
-    [SerializeField]
-    private string currentState;
-    public Path path;
     private GameObject player;
+
+    public NavMeshAgent Agent { get => agent; }
+    public GameObject Player { get => player; }
+
+   
+    public Path path;
+    [Header("Sight Values")]
     public float sightDistance = 20f; //Enemy sight
     public float fieldOFView = 85f; //Enemy FOV
     public float eyeHeight =1.0f;
 
+    [Header("Gun Values")]
+    public Transform gunBarrel;
+    [Range(0.1f, 10f)]
+    public float fireRate;
+
+
+
+    //This is for debugging
+    [SerializeField]
+    private string currentState;
 
     // Start is called before the first frame update
     void Start()
@@ -57,9 +68,9 @@ public class Enemy : MonoBehaviour
                 RaycastHit hitInfo;
                 if (Physics.Raycast(raycastOrigin, targetDirection, out hitInfo, sightDistance))
                 {
-                    Debug.Log("Object hit: " + hitInfo.collider.gameObject.name);
-                    Debug.Log("Object tag: " + hitInfo.collider.gameObject.tag);
-                    Debug.Log("Raycast direction: " + targetDirection);
+                    //Debug.Log("Object hit: " + hitInfo.collider.gameObject.name);
+                    //Debug.Log("Object tag: " + hitInfo.collider.gameObject.tag);
+                    //Debug.Log("Raycast direction: " + targetDirection);
 
                     // Check if the hit object is the player
                     if (hitInfo.collider.CompareTag("Player"))
