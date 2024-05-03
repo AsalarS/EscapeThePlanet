@@ -7,6 +7,7 @@ public class AttackState : BaseState
     private float moveTimer; //Make the agent move slightly to make the accuracy less 
     private float losePlayerTimer; //How long the enemy remain in attack state before going back to search
     private float shootTimer;
+    public float bulletSpeed =40f;
 
     public override void Enter()
     {
@@ -50,6 +51,18 @@ public class AttackState : BaseState
 
     public void Shoot()
     {
+        //Store reference to the gun barrel
+        Transform gunbarrel = enemy.gunBarrel;
+
+        //Instantiate a new bullet
+        GameObject bullet = GameObject.Instantiate(Resources.Load("Prefab/Bulet") as GameObject, gunbarrel.position, enemy.transform.rotation);
+
+        //Calculate the direction to the player 
+        Vector3 shootDirection = (enemy.Player.transform.position - gunbarrel.transform.position).normalized;
+
+        //add force rigidbody of the bullet
+        bullet.GetComponent<Rigidbody>().velocity = shootDirection * bulletSpeed;
+
         Debug.Log("SHoot");
         shootTimer = 0;
     }
