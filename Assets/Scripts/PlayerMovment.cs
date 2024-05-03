@@ -1,3 +1,4 @@
+using SojaExiles;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,10 +8,13 @@ public class PlayerMovment : MonoBehaviour
     public CharacterController controller;
     public float speed = 4f; //character's speed
     Animator animator; // an animator object to reference in unity
-
+    //private PlayerMovment playerMovment;
+    private MouseLook mouseLook;
     void Start()
     {
         animator = GetComponent<Animator>(); // a referance for unity's component
+        //playerMovment = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovment>();
+        mouseLook = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MouseLook>();
     }
 
     // Update is called once per frame
@@ -33,5 +37,22 @@ public class PlayerMovment : MonoBehaviour
         //change velocities in the blend tree
         this.animator.SetFloat("x",clmapetHorizontal);
         this.animator.SetFloat("y",clmapetVertical);
+    }
+    public void OnTakedownAnimationStart()
+    {
+        //playerMovment.enabled = false;
+        animator.applyRootMotion = true;
+        controller.enabled = false;
+        Vector3 cameraEulerAngles = mouseLook.transform.eulerAngles;
+        cameraEulerAngles.x = 0f;
+        mouseLook.transform.eulerAngles = cameraEulerAngles;
+        mouseLook.enabled = false;
+    }
+    public void OnTakedownAnimationEnd()
+    {
+        //playerMovment.enabled = true;
+        animator.applyRootMotion = false;
+        controller.enabled = true;
+        mouseLook.enabled = true;
     }
 }
