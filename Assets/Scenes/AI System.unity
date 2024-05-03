@@ -1426,11 +1426,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b68528a74a7ee1f41b6110709037ad43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 
   path: {fileID: 762775037}
   sightDistance: 20
   fieldOFView: 70
   eyeHeight: 0.8
+  gunBarrel: {fileID: 259789189}
+  fireRate: 0.7
+  currentState: 
 --- !u!195 &1118762751
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1441,7 +1443,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.77
-  m_Speed: 3.5
+  m_Speed: 0
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -1634,6 +1636,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 92b211c82eea1b94aa3c03475fad85c0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 677689539}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 92b211c82eea1b94aa3c03475fad85c0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1958006454}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 92b211c82eea1b94aa3c03475fad85c0, type: 3}
       insertIndex: -1
@@ -1644,6 +1649,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 92b211c82eea1b94aa3c03475fad85c0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1871341545}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 92b211c82eea1b94aa3c03475fad85c0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1871341547}
   m_SourcePrefab: {fileID: 100100000, guid: 92b211c82eea1b94aa3c03475fad85c0, type: 3}
 --- !u!1 &1354450891
 GameObject:
@@ -2119,6 +2127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 1871341543}
   speed: 5
+  gravity: -9.81
 --- !u!143 &1871341543
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2161,6 +2170,58 @@ MonoBehaviour:
   chipSpeed: 2
   frontHealthBar: {fileID: 947831526}
   backHealthBar: {fileID: 717913518}
+--- !u!135 &1871341547
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279477397}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1958006453
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1958006454}
+  m_Layer: 0
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1958006454
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958006453}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1871341540}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2024846394
 GameObject:
   m_ObjectHideFlags: 0

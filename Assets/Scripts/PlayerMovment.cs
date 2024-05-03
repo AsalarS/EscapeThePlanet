@@ -7,6 +7,15 @@ public class PlayerMovment : MonoBehaviour
 {
     public CharacterController controller;
     public float speed = 4f; //character's speed
+    public float gravity = -9.81f;
+
+    public Transform groundCheck;
+    public float groundDistance =0.4f;
+    public LayerMask groundMask;
+
+    Vector3 velocity;
+    bool isOnGround;
+
     Animator animator; // an animator object to reference in unity
     //private PlayerMovment playerMovment;
     private MouseLook mouseLook;
@@ -20,13 +29,24 @@ public class PlayerMovment : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        isOnGround = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        if (isOnGround && velocity.y < 0)
+        {
+            velocity.y = -2f;
+        }
+
         float x = Input.GetAxis("Horizontal"); //get horizontal movement
         float z = Input.GetAxis("Vertical"); //get vertical movement
 
         Vector3 move = transform.right * x + transform.forward * z;
         controller.Move(move * speed * Time.deltaTime);
+
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
+
         Animate(x,z); // animate the character based on movement
+        
     }
     void Animate(float x, float y)
     {
