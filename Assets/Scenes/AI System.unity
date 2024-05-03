@@ -275,7 +275,7 @@ GameObject:
   - component: {fileID: 95089363}
   - component: {fileID: 95089362}
   - component: {fileID: 95089366}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1665,7 +1665,7 @@ GameObject:
   - component: {fileID: 1354450894}
   - component: {fileID: 1354450893}
   - component: {fileID: 1354450892}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1770,7 +1770,7 @@ GameObject:
   - component: {fileID: 1517773698}
   - component: {fileID: 1517773697}
   - component: {fileID: 1517773696}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2127,7 +2127,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 1871341543}
   speed: 5
-  gravity: -9.81
+  gravity: -30
+  jumpHeight: 3
+  groundCheck: {fileID: 1958006454}
+  groundDistance: 0.4
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!143 &1871341543
 CharacterController:
   m_ObjectHideFlags: 0
