@@ -63,7 +63,7 @@ public class PlayerHealth : MonoBehaviour
     {
         health -= damage;
         lerpTimer = 0f;
-        Debug.Log(health);
+
     }
 
     public void RestoreHealth(float healAmount)
