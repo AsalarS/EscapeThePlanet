@@ -75,7 +75,7 @@ public class AttackState : BaseState
         GameObject bullet = GameObject.Instantiate(Resources.Load("Prefab/Bulet") as GameObject, gunbarrel.position, gunbarrel.rotation);
 
         // Add force to the bullet in the direction of the gun barrel
-        bullet.GetComponent<Rigidbody>().velocity = Quaternion.AngleAxis(Random.Range(-2f,2f),Vector3.up) * gunbarrel.forward * bulletSpeed; //The higher the number the less the accurate
+        bullet.GetComponent<Rigidbody>().velocity = Quaternion.AngleAxis(Random.Range(0f,0f),Vector3.up) * gunbarrel.forward * bulletSpeed; //The higher the number the less the accurate
 
         shootTimer = 0;
     }

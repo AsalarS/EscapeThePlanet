@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,6 +12,7 @@ public class Enemy : MonoBehaviour
     private NavMeshAgent agent;
     private GameObject player;
     private PlayerHealth playerHealth; // Reference to PlayerHealth component
+    private Animator animator;
 
 
     public NavMeshAgent Agent { get => agent; }
@@ -43,7 +45,7 @@ public class Enemy : MonoBehaviour
         stateMachine.Initialize();
         player = GameObject.FindGameObjectWithTag("Player"); //Assign the object to the player object in unity
         playerHealth = player.GetComponent<PlayerHealth>(); // Assign reference to PlayerHealth
-
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -51,6 +53,15 @@ public class Enemy : MonoBehaviour
     {
         CanSeePlayer();
         currentState = stateMachine.activeState.ToString();
+        if(agent.velocity.magnitude > 0.1f ) {
+            animator.SetBool("IsWalking", true);
+
+        }
+        else
+        {
+            animator.SetBool("IsWalking", false);
+
+        }
     }
 
     public bool CanSeePlayer()
@@ -91,6 +102,10 @@ public class Enemy : MonoBehaviour
 
         return false;
     }
+
+    
+
+
 
 
 }
