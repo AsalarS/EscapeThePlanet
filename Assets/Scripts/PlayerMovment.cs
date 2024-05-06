@@ -2,7 +2,7 @@ using SojaExiles;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Cinemachine;
 public class PlayerMovment : MonoBehaviour
 {
     public CharacterController controller;
@@ -10,6 +10,9 @@ public class PlayerMovment : MonoBehaviour
     Animator animator; // an animator object to reference in unity
     //private PlayerMovment playerMovment;
     private MouseLook mouseLook;
+    [SerializeField] private CinemachineVirtualCamera virtualCamera;
+    [SerializeField] private Transform virtualCameraSource;
+    [SerializeField] private Transform virtualCameraLook;
     void Start()
     {
         animator = GetComponent<Animator>(); // a referance for unity's component
@@ -28,6 +31,7 @@ public class PlayerMovment : MonoBehaviour
         controller.Move(move * speed * Time.deltaTime);
         Animate(x,z); // animate the character based on movement
     }
+    
     void Animate(float x, float y)
     {
         //cap values in range of -1 to 1
@@ -41,12 +45,15 @@ public class PlayerMovment : MonoBehaviour
     public void OnTakedownAnimationStart()
     {
         //playerMovment.enabled = false;
+        virtualCamera.transform.position = virtualCameraSource.position;
+        virtualCamera.transform.LookAt(virtualCameraLook);
         animator.applyRootMotion = true;
         controller.enabled = false;
         Vector3 cameraEulerAngles = mouseLook.transform.eulerAngles;
         cameraEulerAngles.x = 0f;
         mouseLook.transform.eulerAngles = cameraEulerAngles;
         mouseLook.enabled = false;
+        virtualCamera.Priority = 21;
     }
     public void OnTakedownAnimationEnd()
     {
@@ -54,5 +61,9 @@ public class PlayerMovment : MonoBehaviour
         animator.applyRootMotion = false;
         controller.enabled = true;
         mouseLook.enabled = true;
+    }
+    public void OnAnimationReturnCamera()
+    {
+        virtualCamera.Priority = 10;
     }
 }
