@@ -63,8 +63,38 @@ public class PlayerHealth : MonoBehaviour
     {
         health -= damage;
         lerpTimer = 0f;
+        if(health <= 0f)
+        {
+            Debug.Log("player dead");
+            IsDead();
+            playerDead();
+        }
 
     }
+    public bool IsDead()
+    {
+        return health <= 0f;
+    }
+    public void playerDead()
+    {
+        PlayerMovment playerMovement = GetComponent<PlayerMovment>();
+
+        // Disable player movement
+        if (playerMovement != null)
+            playerMovement.enabled = false;
+
+        // Disable mouse look on the main camera
+        Camera mainCamera = Camera.main;
+        if (mainCamera != null)
+        {
+            MouseLook mouseLook = mainCamera.GetComponent<MouseLook>();
+            if (mouseLook != null)
+                mouseLook.enabled = false;
+        }
+
+        
+    }
+
 
     public void RestoreHealth(float healAmount)
     {

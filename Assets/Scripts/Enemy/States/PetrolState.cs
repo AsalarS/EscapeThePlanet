@@ -16,7 +16,7 @@ public class PetrolState : BaseState
     public override void Perform()
     {
         PetrolCycle();
-        if (enemy.CanSeePlayer())
+        if (enemy.CanSeePlayer() && !enemy.PlayerHealth.IsDead())
         {
             stateMachine.ChangeState(new AttackState());
         }

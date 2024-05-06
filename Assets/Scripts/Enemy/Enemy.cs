@@ -10,11 +10,14 @@ public class Enemy : MonoBehaviour
     private StateMachine stateMachine;
     private NavMeshAgent agent;
     private GameObject player;
+    private PlayerHealth playerHealth; // Reference to PlayerHealth component
+
 
     public NavMeshAgent Agent { get => agent; }
     public GameObject Player { get => player; }
+    public PlayerHealth PlayerHealth { get => playerHealth; } // Expose PlayerHealth component
 
-   
+
     public Path path;
     [Header("Sight Values")]
     public float sightDistance = 20f; //Enemy sight
@@ -39,6 +42,8 @@ public class Enemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         stateMachine.Initialize();
         player = GameObject.FindGameObjectWithTag("Player"); //Assign the object to the player object in unity
+        playerHealth = player.GetComponent<PlayerHealth>(); // Assign reference to PlayerHealth
+
     }
 
     // Update is called once per frame
