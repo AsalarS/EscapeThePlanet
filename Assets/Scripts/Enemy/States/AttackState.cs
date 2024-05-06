@@ -21,6 +21,10 @@ public class AttackState : BaseState
     {
         if(enemy.CanSeePlayer())
         {
+            if (!enemy.PlayerHealth.IsDead())
+            {
+                // Player is visible and alive, perform attack actions
+            
             //Lock the lose player timer and increment move timer and shot timer
             losePlayerTimer = 0;
             moveTimer += Time.deltaTime;
@@ -38,6 +42,7 @@ public class AttackState : BaseState
                 moveTimer =0;
             }
         }
+            }
         else //Player cant be seen
         {
             losePlayerTimer += Time.deltaTime;
@@ -45,6 +50,12 @@ public class AttackState : BaseState
             {
                 stateMachine.ChangeState(new PetrolState());
             }
+        }
+
+        if (enemy.PlayerHealth.IsDead()) // Assuming IsDead() returns true if player health is zero or below
+        {
+            // Switch to patrol state
+            stateMachine.ChangeState(new PetrolState());
         }
     }
 
@@ -66,7 +77,6 @@ public class AttackState : BaseState
         // Add force to the bullet in the direction of the gun barrel
         bullet.GetComponent<Rigidbody>().velocity = Quaternion.AngleAxis(Random.Range(-2f,2f),Vector3.up) * gunbarrel.forward * bulletSpeed; //The higher the number the less the accurate
 
-        Debug.Log("Shot fired");
         shootTimer = 0;
     }
 
