@@ -100,5 +100,6 @@ public class PlayerHealth : MonoBehaviour
     {
         health += healAmount;
         lerpTimer = 0f;
+
     }
 }

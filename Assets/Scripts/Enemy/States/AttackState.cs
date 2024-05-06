@@ -19,48 +19,45 @@ public class AttackState : BaseState
 
     public override void Perform()
     {
-        if (enemy.CanSeePlayer())
+        if(enemy.CanSeePlayer())
         {
             if (!enemy.PlayerHealth.IsDead())
             {
                 // Player is visible and alive, perform attack actions
-                losePlayerTimer = 0; // Reset lose player timer
-                moveTimer += Time.deltaTime; // Increment move timer
-                shootTimer += Time.deltaTime; // Increment shoot timer
+            
+            //Lock the lose player timer and increment move timer and shot timer
+            losePlayerTimer = 0;
+            moveTimer += Time.deltaTime;
+            shootTimer += Time.deltaTime;
+            enemy.transform.LookAt(enemy.Player.transform);
 
-                // Perform shooting actions based on shoot timer
-                if (shootTimer > enemy.fireRate)
-                {
-                    Shoot();
-                }
-
-                // Perform movement actions based on move timer
-                if (moveTimer > Random.Range(3, 7))
-                {
-                    enemy.Agent.SetDestination(enemy.transform.position + (Random.insideUnitSphere * 5));
-                    moveTimer = 0; // Reset move timer
-                }
-            }
-            else
+            if(shootTimer > enemy.fireRate)
             {
-                // Player is dead, switch to patrol state
+                Shoot();
+            }
+
+            if(moveTimer > Random.Range(3, 7))
+            {
+                enemy.Agent.SetDestination(enemy.transform.position  + (Random.insideUnitSphere * 5)); //Move the agent to random location 
+                moveTimer =0;
+            }
+        }
+            }
+        else //Player cant be seen
+        {
+            losePlayerTimer += Time.deltaTime;
+            if(losePlayerTimer > 8)
+            {
                 stateMachine.ChangeState(new PetrolState());
             }
         }
-        else // Player can't be seen
+
+        if (enemy.PlayerHealth.IsDead()) // Assuming IsDead() returns true if player health is zero or below
         {
-            losePlayerTimer += Time.deltaTime; // Increment lose player timer
-            if (losePlayerTimer > 8)
-            {
-                // Switch to patrol state if player is dead
-                if (enemy.PlayerHealth.IsDead())
-                {
-                    stateMachine.ChangeState(new PetrolState());
-                }
-            }
+            // Switch to patrol state
+            stateMachine.ChangeState(new PetrolState());
         }
     }
-
 
 
     public void Shoot()
