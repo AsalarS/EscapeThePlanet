@@ -8,7 +8,7 @@ public class AttackState : BaseState
     private float losePlayerTimer; //How long the enemy remain in attack state before going back to search
     private float shootTimer;
     public float bulletSpeed =40f;
-
+    public bool chase = false; //if chase state make true, if shoot enemy make false
     public override void Enter()
     {
     }
@@ -16,47 +16,56 @@ public class AttackState : BaseState
     public override void Exit()
     {
     }
+    public void ChasePlayer()
+    {
+        // Set destination to player position for chasing
+        enemy.Agent.SetDestination(enemy.Player.transform.position);
+    }
 
     public override void Perform()
     {
-        if(enemy.CanSeePlayer())
+        if (enemy.CanSeePlayer())
         {
-            if (!enemy.PlayerHealth.IsDead())
-            {
-                // Player is visible and alive, perform attack actions
             
-            //Lock the lose player timer and increment move timer and shot timer
-            losePlayerTimer = 0;
-            moveTimer += Time.deltaTime;
-            shootTimer += Time.deltaTime;
-            enemy.transform.LookAt(enemy.Player.transform);
+                if (!enemy.PlayerHealth.IsDead())
+                {
+                    // Player is visible and alive, perform attack actions
 
-            if(shootTimer > enemy.fireRate)
+                    //Lock the lose player timer and increment move timer and shot timer
+                    losePlayerTimer = 0;
+                    moveTimer += Time.deltaTime;
+                    shootTimer += Time.deltaTime;
+                    enemy.transform.LookAt(enemy.Player.transform);
+
+                    if (shootTimer > enemy.fireRate)
+                    {
+                        Shoot();
+                    }
+
+                    if (moveTimer > Random.Range(3, 7))
+                    {
+                        enemy.Agent.SetDestination(enemy.transform.position + (Random.insideUnitSphere * 5)); //Move the agent to random location 
+                        moveTimer = 0;
+                    }
+                }
+            enemy.LastKnownPos = enemy.Player.transform.position;
+            }
+            else //Player cant be seen
             {
-                Shoot();
+                losePlayerTimer += Time.deltaTime;
+                if (losePlayerTimer > 8)
+                {
+                    stateMachine.ChangeState(new SearchState());
+                }
             }
 
-            if(moveTimer > Random.Range(3, 7))
+            if (enemy.PlayerHealth.IsDead()) // Assuming IsDead() returns true if player health is zero or below
             {
-                enemy.Agent.SetDestination(enemy.transform.position  + (Random.insideUnitSphere * 5)); //Move the agent to random location 
-                moveTimer =0;
-            }
-        }
-            }
-        else //Player cant be seen
-        {
-            losePlayerTimer += Time.deltaTime;
-            if(losePlayerTimer > 8)
-            {
+                // Switch to patrol state
                 stateMachine.ChangeState(new PetrolState());
             }
-        }
-
-        if (enemy.PlayerHealth.IsDead()) // Assuming IsDead() returns true if player health is zero or below
-        {
-            // Switch to patrol state
-            stateMachine.ChangeState(new PetrolState());
-        }
+        
+        
     }
 
 

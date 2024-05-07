@@ -13,12 +13,17 @@ public class Enemy : MonoBehaviour
     private GameObject player;
     private PlayerHealth playerHealth; // Reference to PlayerHealth component
     private Animator animator;
+    private Vector3 lastKnownPos; //Last known position of the player
 
 
     public NavMeshAgent Agent { get => agent; }
     public GameObject Player { get => player; }
     public PlayerHealth PlayerHealth { get => playerHealth; } // Expose PlayerHealth component
 
+    public Vector3 LastKnownPos { get => lastKnownPos; set => lastKnownPos = value; }
+
+    [SerializeField]
+    public bool isChasingPlayer = false;
 
     public Path path;
     [Header("Sight Values")]
@@ -31,7 +36,10 @@ public class Enemy : MonoBehaviour
     [Range(0.1f, 10f)]
     public float fireRate;
 
-
+    public void ToggleChasingState()
+    {
+        isChasingPlayer = !isChasingPlayer;
+    }
 
     //This is for debugging
     [SerializeField]
