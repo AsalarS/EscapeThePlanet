@@ -17,7 +17,7 @@ public abstract class EnemyAnimation : MonoBehaviour
     protected bool isStaggered; //a boolean to check when the enemy reached critical state
     public Transform[] transferTargets; //for transfering the player to the correct position
     protected CharacterController playerController; //to disable the player movement during the animation
-
+    
     protected bool isAnimating = false; //to prevent multiple takedowns in the same place
     protected string nearestTargetName;
     public Rigidbody[] ragdollRigidbodies; // Array of rigidbodies representing the enemy's body parts

@@ -13,11 +13,13 @@ public class PlayerMovment : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private Transform virtualCameraSource;
     [SerializeField] private Transform virtualCameraLook;
+    [HideInInspector]
+    public static bool IsAnimating { get; set; }// to prevent multiple takedowns in the same location and time
     void Start()
     {
         animator = GetComponent<Animator>(); // a referance for unity's component
         //playerMovment = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovment>();
-        mouseLook = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MouseLook>();
+        mouseLook = GameObject.FindGameObjectWithTag("FPSCamera").GetComponent<MouseLook>();
     }
 
     // Update is called once per frame
@@ -44,26 +46,27 @@ public class PlayerMovment : MonoBehaviour
     }
     public void OnTakedownAnimationStart()
     {
-        //playerMovment.enabled = false;
-        virtualCamera.transform.position = virtualCameraSource.position;
-        virtualCamera.transform.LookAt(virtualCameraLook);
-        animator.applyRootMotion = true;
-        controller.enabled = false;
+        IsAnimating = true; //a repeated step - to avoid potential exploits
+        virtualCamera.transform.position = virtualCameraSource.position; //transform the VCamera to the source near the player
+        virtualCamera.transform.LookAt(virtualCameraLook); //rotate the camera to the source
+        animator.applyRootMotion = true; //enable root motion
+        controller.enabled = false; //disable movement
+        //reset fps camera position
         Vector3 cameraEulerAngles = mouseLook.transform.eulerAngles;
         cameraEulerAngles.x = 0f;
         mouseLook.transform.eulerAngles = cameraEulerAngles;
-        mouseLook.enabled = false;
-        virtualCamera.Priority = 21;
+        mouseLook.enabled = false; //disable camera rotation
+        virtualCamera.Priority = 21; //transfer view to VCamera
     }
     public void OnTakedownAnimationEnd()
     {
-        //playerMovment.enabled = true;
-        animator.applyRootMotion = false;
-        controller.enabled = true;
-        mouseLook.enabled = true;
+        IsAnimating = false; //enable takedowns 
+        animator.applyRootMotion = false; //disable root motion
+        controller.enabled = true; //enable movement
+        mouseLook.enabled = true; //enable camera rotation
     }
     public void OnAnimationReturnCamera()
     {
-        virtualCamera.Priority = 10;
+        virtualCamera.Priority = 10; //return view to fps camera
     }
 }

@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - TransferTargets
+  - FPSCamera
   layers:
   - Default
   - TransparentFX

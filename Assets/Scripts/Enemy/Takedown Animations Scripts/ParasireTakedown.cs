@@ -15,12 +15,13 @@ public class ParasireTakedown : EnemyAnimation
         {
             enemyAnimator.SetBool("IsStaggered", isStaggered); //start the staggered animation
         }
-        if (isStaggered && Input.GetKeyDown("q") && !isAnimating) // if the enemy is stagered and the takedown button is pressed
+        if (isStaggered && Input.GetKeyDown("q") && !isAnimating && !PlayerMovment.IsAnimating) // if the enemy is stagered and the takedown button is pressed
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player"); //find the player object
             if (player != null && IsPlayerInRange(player.transform)) //check if player in range
             {
                 (string nearestTargetName, Transform nearestTarget) = GetNearestTransferTarget(playerController.transform.position);
+                PlayerMovment.IsAnimating = true; //a flag to prevent multiple takedowns in the same location
                 PerformTakedown(player.transform, nearestTargetName); //initiate the takedown
                 if (nearestTarget != null)
                 {
