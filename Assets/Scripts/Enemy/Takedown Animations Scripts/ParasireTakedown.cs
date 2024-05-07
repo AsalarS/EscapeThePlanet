@@ -67,5 +67,63 @@ public class ParasireTakedown : EnemyAnimation
                 break;
         }
     }
+    /// <summary>
+    /// A function used by an animation to launch the enemy
+    /// </summary>
+    public void ParasiteActivateRagdollAndLaunch()
+    {
+        
+        // Activate the ragdoll physics
+        SetRagdollActive(true);
+        enemyAnimator.enabled = false;
+        // Apply a launch force to the enemy
+        Vector3 launchDirection = -transform.forward + transform.up; //Launch in the backward and upward direction of the enemy's transform
+        foreach (Rigidbody rb in ragdollRigidbodies)
+        {
+            rb.AddForce(launchDirection * launchForce, ForceMode.Impulse);//apply force to the rigidbody components
+        }
+        Die();
+    }public void ParasiteActivateRagdollAndLaunchTwo()
+    {
+        
+        // Activate the ragdoll physics
+        SetRagdollActive(true);
+        enemyAnimator.enabled = false;
+        launchForce = 50f;
+        // Apply a launch force to the enemy
+        Vector3 launchDirection = transform.forward + -transform.up; //Launch in the backward and upward direction of the enemy's transform
+        foreach (Rigidbody rb in ragdollRigidbodies)
+        {
+            rb.AddForce(launchDirection * launchForce, ForceMode.Impulse);//apply force to the rigidbody components
+        }
+        Die();
+    }public void ParasiteActivateRagdollAndLaunchThree()
+    {
+        
+        // Activate the ragdoll physics
+        SetRagdollActive(true);
+        enemyAnimator.enabled = false;
+        
+        // Apply a launch force to the enemy
+        Vector3 launchDirection = -transform.forward; //Launch in the backward and upward direction of the enemy's transform
+        foreach (Rigidbody rb in ragdollRigidbodies)
+        {
+            rb.AddForce(launchDirection * launchForce, ForceMode.Impulse);//apply force to the rigidbody components
+        }
+        Die();
+    }
+    public void ParasiteActivateRagdollAndLaunchFour()
+    {
 
+        // Activate the ragdoll physics
+        SetRagdollActive(true);
+        enemyAnimator.enabled = false;
+        // Apply a launch force to the enemy
+        Vector3 launchDirection = transform.forward + transform.up; //Launch in the backward and upward direction of the enemy's transform
+        foreach (Rigidbody rb in ragdollRigidbodies)
+        {
+            rb.AddForce(launchDirection * launchForce, ForceMode.Impulse);//apply force to the rigidbody components
+        }
+        Die();
+    }
 }
