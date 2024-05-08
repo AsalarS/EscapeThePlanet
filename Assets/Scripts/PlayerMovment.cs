@@ -13,8 +13,9 @@ public class PlayerMovment : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private Transform virtualCameraSource;
     [SerializeField] private Transform virtualCameraLook;
-    [HideInInspector]
-    public static bool IsAnimating { get; set; }// to prevent multiple takedowns in the same location and time
+    [HideInInspector] public static bool IsAnimating { get; set; }// to prevent multiple takedowns in the same location and time
+    [SerializeField] private GameObject rockPrefab;
+    [SerializeField] private Transform rockTarget;
     void Start()
     {
         animator = GetComponent<Animator>(); // a referance for unity's component
@@ -68,5 +69,25 @@ public class PlayerMovment : MonoBehaviour
     public void OnAnimationReturnCamera()
     {
         virtualCamera.Priority = 10; //return view to fps camera
+    }
+    public void OnAnimationSpwanRock()
+    {
+        GameObject newRock = Instantiate(rockPrefab, rockTarget.position, rockTarget.rotation);
+        newRock.transform.SetParent(rockTarget);
+    }
+    public void OnAnimationThrowRock()
+    {
+        GameObject rock = GameObject.FindWithTag("AniRock");
+        Rigidbody rockRigidbody = rock.gameObject.AddComponent<Rigidbody>();
+
+            // Adjust Rigidbody properties as needed
+            rockRigidbody.mass = 50f;
+            rockRigidbody.drag = 0.5f;
+            rockRigidbody.angularDrag = 0.5f;
+        
+        rock.transform.SetParent(null);
+        float force = 500f;
+        Vector3 launchDirection = rock.transform.forward;
+        rockRigidbody.AddForce(launchDirection * force, ForceMode.Impulse);
     }
 }

@@ -81,6 +81,21 @@ public class AlienTakedown : EnemyAnimation
             rb.AddForce(launchDirection * launchForce, ForceMode.Impulse);
         }
         Die();
+    }public void AlienActivateRagdollAndLaunchTwo()
+    {
+
+        // Activate the ragdoll physics
+        SetRagdollActive(true);
+        enemyAnimator.enabled = false;
+        // Apply a launch force to the enemy
+        Vector3 launchDirection = -transform.right; // Example: Launch in the forward direction of the enemy's transform
+        foreach (Rigidbody rb in ragdollRigidbodies)
+        {
+            rb.AddForce(launchDirection * launchForce, ForceMode.Impulse);
+        }
+        Die();
     }
+    
+    
 }
 
