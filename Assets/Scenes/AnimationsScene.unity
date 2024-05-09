@@ -5152,6 +5152,7 @@ MonoBehaviour:
   chipSpeed: 2
   frontHealthBar: {fileID: 0}
   backHealthBar: {fileID: 0}
+  bloodyScreen: {fileID: 0}
 --- !u!114 &2141023352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5166,6 +5167,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 2141023353}
   speed: 4
+  gravity: -9.81
+  jumpHeight: 3
+  groundCheck: {fileID: 0}
+  groundDistance: 0.4
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
   virtualCamera: {fileID: 625407029}
   virtualCameraSource: {fileID: 1358583799}
   virtualCameraLook: {fileID: 669301252}
