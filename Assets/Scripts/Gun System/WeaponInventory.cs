@@ -116,6 +116,21 @@ public class WeaponSwitching : MonoBehaviour
             Array.Resize(ref keys, keys.Length + 1);
             keys[keys.Length - 1] = KeyCode.None;
 
+            //Physics
+            // Enable physics on the weapon
+            Rigidbody rb = gun.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.isKinematic = true;
+            }
+
+            // Enable the mesh collider on the weapon
+            BoxCollider boxcol = gun.GetComponent<BoxCollider>();
+            if (boxcol != null)
+            {
+                boxcol.enabled = false;
+            }
+
             EquipWeapon(weapons.Length - 1);
         }
         else
