@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AlienTakedown : EnemyAnimation
 {
-    
         protected override void Update()
         {
             if (currentHealth <= lowHealth) //if enemy reached low health
@@ -75,21 +74,28 @@ public class AlienTakedown : EnemyAnimation
         // Activate the ragdoll physics
         SetRagdollActive(true);
         enemyAnimator.enabled = false;
-        float launchForce = 100f;
-        Vector3 launchDirection = transform.forward;
-        addForce(launchForce, launchDirection);
+        // Apply a launch force to the enemy
+        Vector3 launchDirection = transform.forward; // Example: Launch in the forward direction of the enemy's transform
+        foreach (Rigidbody rb in ragdollRigidbodies)
+        {
+            rb.AddForce(launchDirection * launchForce, ForceMode.Impulse);
+        }
         Die();
-    }
-    public void AlienActivateRagdollAndLaunchTwo()
+    }public void AlienActivateRagdollAndLaunchTwo()
     {
 
         // Activate the ragdoll physics
         SetRagdollActive(true);
         enemyAnimator.enabled = false;
-        float launchForce = 70f;
-        Vector3 launchDirection = -transform.right;
-        addForce(launchForce, launchDirection);
+        // Apply a launch force to the enemy
+        Vector3 launchDirection = -transform.right; // Example: Launch in the forward direction of the enemy's transform
+        foreach (Rigidbody rb in ragdollRigidbodies)
+        {
+            rb.AddForce(launchDirection * launchForce, ForceMode.Impulse);
+        }
         Die();
     }
+    
+    
 }
 

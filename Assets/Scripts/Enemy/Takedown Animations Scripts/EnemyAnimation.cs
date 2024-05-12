@@ -1,7 +1,6 @@
 using SojaExiles;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -18,12 +17,13 @@ public abstract class EnemyAnimation : MonoBehaviour
     protected bool isStaggered; //a boolean to check when the enemy reached critical state
     public Transform[] transferTargets; //for transfering the player to the correct position
     protected CharacterController playerController; //to disable the player movement during the animation
+    
     protected bool isAnimating = false; //to prevent multiple takedowns in the same place
     protected string nearestTargetName;
-    [HideInInspector]public Rigidbody[] ragdollRigidbodies; // Array of rigidbodies representing the enemy's body parts
-    [HideInInspector]public Collider[] ragdollColliders; // Array of Colliders representing the enemy's body parts
+    public Rigidbody[] ragdollRigidbodies; // Array of rigidbodies representing the enemy's body parts
+    public float launchForce = 100f; // The force applied to launch the enemy
 
-    
+    protected bool isRagdollActive = false;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +33,7 @@ public abstract class EnemyAnimation : MonoBehaviour
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();//get player component
         playerAnimator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();//get player component
         enemyAnimator = GetComponent<Animator>();
+        
         SetRagdollActive(false);
     }
     protected abstract void Update();
@@ -101,8 +102,7 @@ public abstract class EnemyAnimation : MonoBehaviour
     {
         enemyAnimator.enabled = false;
         SetRagdollActive(true);
-        Destroy(gameObject,10f);
-        //enabled = false;
+        enabled = false;
     }
     /// <summary>
     /// Activate or deactivate the ragdoll component on the enemy body
@@ -115,30 +115,13 @@ public abstract class EnemyAnimation : MonoBehaviour
         {
             rb.isKinematic = !isActive;
         }
-        foreach (Collider collider in ragdollColliders)
-        { 
-            collider.enabled = isActive; 
-        }
-        
+
+        isRagdollActive = isActive;
     }
     private void Awake()
     {
         // Automatically populate the ragdollRigidbodies array with the rigidbody components of the enemy's body parts
         ragdollRigidbodies = GetComponentsInChildren<Rigidbody>();
-        ragdollColliders = GetComponentsInChildren<Collider>();
         
-    }
-    /// <summary>
-    /// Called by public methods in animation events to apply force
-    /// </summary>
-    /// <param name="force">force power to apply</param>
-    /// <param name="launchDirection">direction of force</param>
-    protected void addForce(float force, Vector3 launchDirection)
-    {
-        foreach (Rigidbody rb in ragdollRigidbodies)
-        {
-            rb.isKinematic = false;
-            rb.AddForce(launchDirection * force, ForceMode.Impulse);
-        }
     }
 }

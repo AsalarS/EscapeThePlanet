@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5947988138656840637}
   - component: {fileID: 223480971280441133}
   - component: {fileID: 2890451712716694683}
-  - component: {fileID: -7070342280946260959}
   m_Layer: 0
   m_Name: AnimationRock
   m_TagString: AniRock
@@ -28,11 +27,11 @@ Transform:
   m_GameObject: {fileID: 3083452775880519599}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.056, y: 2.11, z: -3}
-  m_LocalScale: {x: 0.47, y: 0.38, z: 0.5}
+  m_LocalScale: {x: 0.6205, y: 0.5, z: 0.5641}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &223480971280441133
 MeshFilter:
@@ -84,24 +83,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &-7070342280946260959
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3083452775880519599}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.33, y: 1.57, z: 1.5776117}
-  m_Center: {x: -0.048798233, y: -0.082027376, z: -0.015865238}
