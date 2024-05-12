@@ -79,7 +79,10 @@ public class WeaponSwitching : MonoBehaviour
     private void Select(int weaponIndex)
     {
         for (int i = 0; i < weapons.Length; i++)
-            weapons[i].gameObject.SetActive(i == weaponIndex);
+            if (weapons[i] != null)
+            {
+                weapons[i].gameObject.SetActive(i == weaponIndex);
+            }
 
         timeSinceLastSwitch = 0f;
 
@@ -149,6 +152,10 @@ public class WeaponSwitching : MonoBehaviour
             }
             selectedWeapon = weaponIndex;
         }
+        else if (weapons.Length == 0)
+        {
+            Debug.Log("No weapons in inventory.");
+        }
         else
         {
             Debug.LogError("Invalid weapon index: " + weaponIndex);
@@ -168,14 +175,28 @@ public class WeaponSwitching : MonoBehaviour
     }
     private void DropWeapon()
         {
+            // Check if the inventory is empty
+            if (weapons.Length == 0)
+            {
+                Debug.Log("Inventory is empty.");
+                return;
+            }
+
             if (selectedWeapon < 0 || selectedWeapon >= weapons.Length)
             {
                 Debug.LogError("Invalid weapon index: " + selectedWeapon);
                 return;
             }
 
+            // Clear the ammo text
+            GunSystem gunSystem = weapons[selectedWeapon].GetComponent<GunSystem>();
+            if (gunSystem != null)
+            {
+                gunSystem.text.text  = "";
+            }
+
             // Get the weapon to drop
-            Transform weaponToDrop = weapons[selectedWeapon];
+            Transform weaponToDrop = weapons[selectedWeapon]; // todo : This is not working
 
             // Remove the weapon from the inventory
             for (int i = selectedWeapon; i < weapons.Length - 1; i++)
@@ -200,8 +221,8 @@ public class WeaponSwitching : MonoBehaviour
             // Drop the weapon
             Drop(weaponToDrop);
 
-            // Select the next weapon in the inventory
-            EquipWeapon(selectedWeapon);
+        // Select the next weapon in the inventory
+        EquipWeapon(selectedWeapon);
         }
     private void Drop(Transform weaponToDrop)
     {
