@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using Unity.VisualScripting;
 public class PlayerMovment : MonoBehaviour
 {
     public CharacterController controller;
@@ -107,13 +108,14 @@ public class PlayerMovment : MonoBehaviour
         Rigidbody rockRigidbody = rock.gameObject.AddComponent<Rigidbody>();
 
             // Adjust Rigidbody properties as needed
-            rockRigidbody.mass = 50f;
+            rockRigidbody.mass = 70f;
             rockRigidbody.drag = 0.5f;
             rockRigidbody.angularDrag = 0.5f;
         
         rock.transform.SetParent(null);
-        float force = 500f;
+        float force = 400f;
         Vector3 launchDirection = rock.transform.forward;
         rockRigidbody.AddForce(launchDirection * force, ForceMode.Impulse);
+        Destroy(rock,6f);
     }
 }
