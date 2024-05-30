@@ -26,9 +26,18 @@ public class AttackState : BaseState
     {
         if (enemy.CanSeePlayer())
         {
-            
-                if (!enemy.PlayerHealth.IsDead())
+
+            if (!enemy.PlayerHealth.IsDead())
+            {
+                if (enemy.EnemyType == 0) //IF enemy is not a shooter, 
                 {
+                    enemy.Agent.speed = 4f;
+                    ChasePlayer();
+                }
+                else //IF enemy is a shooter
+                {
+
+
                     // Player is visible and alive, perform attack actions
 
                     //Lock the lose player timer and increment move timer and shot timer
@@ -48,7 +57,7 @@ public class AttackState : BaseState
                         moveTimer = 0;
                     }
                 }
-            enemy.LastKnownPos = enemy.Player.transform.position;
+                enemy.LastKnownPos = enemy.Player.transform.position;
             }
             else //Player cant be seen
             {
@@ -64,8 +73,8 @@ public class AttackState : BaseState
                 // Switch to patrol state
                 stateMachine.ChangeState(new PetrolState());
             }
-        
-        
+
+        }
     }
 
 

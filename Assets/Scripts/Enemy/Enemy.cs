@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -14,6 +15,7 @@ public class Enemy : MonoBehaviour
     private PlayerHealth playerHealth; // Reference to PlayerHealth component
     private Animator animator;
     private Vector3 lastKnownPos; //Last known position of the player
+    
 
 
     public NavMeshAgent Agent { get => agent; }
@@ -24,6 +26,8 @@ public class Enemy : MonoBehaviour
 
     [SerializeField]
     public bool isChasingPlayer = false;
+
+    public int EnemyType; // 0 if enemy is NOT shooter, else 1
 
     public Path path;
     [Header("Sight Values")]
@@ -111,9 +115,8 @@ public class Enemy : MonoBehaviour
         return false;
     }
 
-    
-
-
-
-
+    internal bool isdead()
+    {
+        throw new NotImplementedException();
+    }
 }

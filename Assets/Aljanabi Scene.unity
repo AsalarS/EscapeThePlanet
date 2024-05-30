@@ -375,6 +375,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 1168764648}
   speed: 12
+  gravity: -9.81
+  jumpHeight: 3
+  groundCheck: {fileID: 0}
+  groundDistance: 0.4
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
+  virtualCamera: {fileID: 0}
+  virtualCameraSource: {fileID: 0}
+  virtualCameraLook: {fileID: 0}
+  rockPrefab: {fileID: 0}
+  rockTarget: {fileID: 0}
 --- !u!1 &1344552888
 GameObject:
   m_ObjectHideFlags: 0
