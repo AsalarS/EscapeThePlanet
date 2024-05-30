@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ParasireTakedown : EnemyAnimation
+public class SoldierTakedown : EnemyAnimation
 {
-
+    // Start is called before the first frame update
     protected override void Start()
     {
-        XPAmount = 50; //set the default xp value upon death
-        maxHealth = 250f; //set the health for this enemy
-        SharedStart(); //set the rest of the components
+        XPAmount = 25; //set the default xp value given upon death
+        maxHealth = 100f; //set the health for the enemy
+        SharedStart();
     }
-    // Update is called once per frame
+
     protected override void Update()
     {
         if (currentHealth <= lowHealth) //if enemy reached low health
@@ -28,7 +28,7 @@ public class ParasireTakedown : EnemyAnimation
             if (player != null && IsPlayerInRange(player.transform)) //check if player in range
             {
                 (string nearestTargetName, Transform nearestTarget) = GetNearestTransferTarget(playerController.transform.position);
-                PlayerMovment.IsAnimating = true; //a flag to prevent multiple takedowns in the same location
+                PlayerMovment.IsAnimating = true;
                 PerformTakedown(player.transform, nearestTargetName); //initiate the takedown
                 if (nearestTarget != null)
                 {
@@ -46,82 +46,34 @@ public class ParasireTakedown : EnemyAnimation
 
                 }
             }
+
         }
     }
-           
-    
     protected override void PerformTakedown(Transform player, string targetName)
     {
+
         switch (targetName)
         {
             case "Front":
                 enemyAnimator.SetTrigger("Front Takedown"); //play enemy animation
-                playerAnimator.SetTrigger("Parasite Front Takedown"); //play player animation
+                playerAnimator.SetTrigger("Soldier Front Takedown"); //play player animation
                 break;
             case "Left":
                 enemyAnimator.SetTrigger("Left Takedown"); //play enemy animation
-                playerAnimator.SetTrigger("Parasite Left Takedown"); //play player animation
+                playerAnimator.SetTrigger("Soldier Left Takedown"); //play player animation
                 break;
             case "Right":
                 enemyAnimator.SetTrigger("Right Takedown"); //play enemy animation
-                playerAnimator.SetTrigger("Parasite Right Takedown"); //play player animation
+                playerAnimator.SetTrigger("Soldier Right Takedown"); //play player animation
                 break;
             case "Back":
                 enemyAnimator.SetTrigger("Back Takedown"); //play enemy animation
-                playerAnimator.SetTrigger("Parasite Back Takedown"); //play player animation
+                playerAnimator.SetTrigger("Soldier Back Takedown"); //play player animation
                 break;
             default:
                 Debug.Log("Error: name is not found: " + targetName);
                 break;
         }
-    }
-    /// <summary>
-    /// A function used by an animation to launch the enemy
-    /// </summary>
-    public void ParasiteActivateRagdollAndLaunch()
-    {
-        XPAmount += 50;
-        // Activate the ragdoll physics
-        SetRagdollActive(true);
-        enemyAnimator.enabled = false;
-        float launchForce = 100f;
-        // Apply a launch force to the enemy
-        Vector3 launchDirection = -transform.forward + transform.up;
-        addForce(launchForce, launchDirection);
-        Die(XPAmount);
-    }public void ParasiteActivateRagdollAndLaunchTwo()
-    {
-        XPAmount += 50;
-        // Activate the ragdoll physics
-        SetRagdollActive(true);
-        enemyAnimator.enabled = false;
-        float launchForce = 50f;
-        // Apply a launch force to the enemy
-        Vector3 launchDirection = transform.forward + -transform.up; //Launch in the backward and upward direction of the enemy's transform
-        addForce(launchForce, launchDirection);
-        Die(XPAmount);
-    }public void ParasiteActivateRagdollAndLaunchThree()
-    {
-        XPAmount += 50;
-        // Activate the ragdoll physics
-        SetRagdollActive(true);
-        enemyAnimator.enabled = false;
-        float launchForce = 100f;
-        // Apply a launch force to the enemy
-        Vector3 launchDirection = -transform.forward; //Launch in the backward and upward direction of the enemy's transform
-        addForce(launchForce, launchDirection);
-        Die(XPAmount);
-    }
-    public void ParasiteActivateRagdollAndLaunchFour()
-    {
-        XPAmount += 50;
-        // Activate the ragdoll physics
-        SetRagdollActive(true);
-        enemyAnimator.enabled = false;
-        float launchForce = 100f;
-        // Apply a launch force to the enemy
-        Vector3 launchDirection = transform.forward + transform.up; //Launch in the backward and upward direction of the enemy's transform
-        addForce(launchForce, launchDirection);
-        Die(XPAmount);
+
     }
 }

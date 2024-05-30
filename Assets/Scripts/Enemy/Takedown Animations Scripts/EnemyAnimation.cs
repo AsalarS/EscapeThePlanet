@@ -9,8 +9,8 @@ using UnityEngine;
 public abstract class EnemyAnimation : MonoBehaviour
 {
 
-    public float maxHealth = 100f; //full health
-    public float lowHealth = 20f; //critical health
+    public float maxHealth { get; set; } //full health
+    public float lowHealth { get; set; } = 40f; //critical health
     public float takedownRange = 2f; //the range of the takedown initial
     protected Animator enemyAnimator; //enemy animator reference
     protected Animator playerAnimator; //player animator reference
@@ -19,14 +19,18 @@ public abstract class EnemyAnimation : MonoBehaviour
     public Transform[] transferTargets; //for transfering the player to the correct position
     protected CharacterController playerController; //to disable the player movement during the animation
     protected bool isAnimating = false; //to prevent multiple takedowns in the same place
-    protected string nearestTargetName;
+    protected string nearestTargetName; //to transfer the player to one of the four objects' name
     [HideInInspector]public Rigidbody[] ragdollRigidbodies; // Array of rigidbodies representing the enemy's body parts
     [HideInInspector]public Collider[] ragdollColliders; // Array of Colliders representing the enemy's body parts
+    public int XPAmount { get; set; }
 
-    
 
     // Start is called before the first frame update
-    void Start()
+    protected abstract void Start();
+    /// <summary>
+    /// This method contains the shared elements to be called with the childs class start method
+    /// </summary>
+    protected void SharedStart()
     {
         currentHealth = maxHealth;
         isStaggered = false;
@@ -46,10 +50,10 @@ public abstract class EnemyAnimation : MonoBehaviour
     
     /// <summary>
     ///get the nearest target for the player to transform to,
-    ///the enemy will have four targets srrounding him: front,left,right and back
-    ///this is for choosing one of four animations to play depending on the player's location
+    ///the enemy will have four targets srrounding him: front,left,right and back. <br></br>
+    ///This is for choosing one of four animations to play depending on the player's location
     /// </summary>
-    /// <param name="playerPosition"></param>
+    /// <param name="playerPosition">The player's current position</param>
     /// <returns>The position of the target for player to transform to</returns>
 
     protected (string, Transform) GetNearestTransferTarget(Vector3 playerPosition)
@@ -74,9 +78,9 @@ public abstract class EnemyAnimation : MonoBehaviour
     }
 
     /// <summary>
-    /// calculate the distance between the player when he tries to takedown the enemy during staggered state
+    /// calculate the distance between the player and enemy when he tries to takedown the enemy during staggered state
     /// </summary>
-    /// <param name="playerTransform"></param>
+    /// <param name="playerTransform">Player's current position</param>
     /// <returns>True if the player is in range, false if not</returns>
     protected bool IsPlayerInRange(Transform playerTransform)
     {
@@ -91,18 +95,20 @@ public abstract class EnemyAnimation : MonoBehaviour
     {
         isStaggered = false;
         enemyAnimator.SetBool("IsStaggered", isStaggered); //stop the staggered animation
-        currentHealth += 75;
+        currentHealth += 75; 
     }
 
     /// <summary>
     /// disable the script
     /// </summary>
-    public void Die()
+    public void Die(int amount)
     {
-        enemyAnimator.enabled = false;
-        SetRagdollActive(true);
-        Destroy(gameObject,10f);
-        //enabled = false;
+        enemyAnimator.enabled = false; //turn off the animator
+        SetRagdollActive(true); //turn on rigidbody components for ragdoll effect
+        Destroy(gameObject,10f); //remove object from the game
+        
+        ExperienceManager.Instace.AddExperience(amount);
+
     }
     /// <summary>
     /// Activate or deactivate the ragdoll component on the enemy body

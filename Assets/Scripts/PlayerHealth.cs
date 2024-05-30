@@ -12,8 +12,8 @@ public class PlayerHealth : MonoBehaviour
     public Image frontHealthBar;
     public Image backHealthBar;
     public GameObject bloodyScreen;
-     
-
+    private int maxXP = 1000 , currentLvl = 1, maxLvl = 5 ;
+    public int currentXP;
     // Start is called before the first frame update
     void Start()
     {
@@ -145,5 +145,33 @@ public class PlayerHealth : MonoBehaviour
         health += healAmount;
         lerpTimer = 0f;
 
+    }
+    private void OnEnable()
+    {
+        ExperienceManager.Instace.OnExperienceChange += HandleExperienceChange;
+    }
+    private void OnDisable()
+    {
+        ExperienceManager.Instace.OnExperienceChange -= HandleExperienceChange;
+        
+    }
+    private void HandleExperienceChange(int newXP)
+    {
+        if (currentLvl < maxLvl)
+        {
+            currentXP += newXP;
+            if (currentXP > maxXP)
+            {
+                levelUp();
+            }
+        }
+    }
+    private void levelUp()
+    {
+        maxHealth += 20f;
+        health = maxHealth;
+        currentLvl++;
+        currentXP = 0;
+        maxXP += 250;
     }
 }

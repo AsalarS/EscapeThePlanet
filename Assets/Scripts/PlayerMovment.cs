@@ -27,11 +27,15 @@ public class PlayerMovment : MonoBehaviour
     [HideInInspector] public static bool IsAnimating { get; set; }// to prevent multiple takedowns in the same location and time
     [SerializeField] private GameObject rockPrefab;
     [SerializeField] private Transform rockTarget;
+    [SerializeField] private Camera cinemachineBrain;
+    private int playerLayer, defaultCullingMask;
     void Start()
     {
         animator = GetComponent<Animator>(); // a referance for unity's component
         //playerMovment = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovment>();
         mouseLook = GameObject.FindGameObjectWithTag("FPSCamera").GetComponent<MouseLook>();
+        playerLayer = LayerMask.NameToLayer("Player");
+        defaultCullingMask = cinemachineBrain.cullingMask;
     }
 
     // Update is called once per frame
@@ -75,6 +79,7 @@ public class PlayerMovment : MonoBehaviour
     public void OnTakedownAnimationStart()
     {
         IsAnimating = true; //a repeated step - to avoid potential exploits
+        EnablePlayerVisibilty();
         virtualCamera.transform.position = virtualCameraSource.position; //transform the VCamera to the source near the player
         virtualCamera.transform.LookAt(virtualCameraLook); //rotate the camera to the source
         animator.applyRootMotion = true; //enable root motion
@@ -86,12 +91,21 @@ public class PlayerMovment : MonoBehaviour
         mouseLook.enabled = false; //disable camera rotation
         virtualCamera.Priority = 21; //transfer view to VCamera
     }
+    public void EnablePlayerVisibilty()
+    {
+        cinemachineBrain.cullingMask |= (1 << playerLayer);
+    }
     public void OnTakedownAnimationEnd()
     {
         IsAnimating = false; //enable takedowns 
         animator.applyRootMotion = false; //disable root motion
         controller.enabled = true; //enable movement
         mouseLook.enabled = true; //enable camera rotation
+        DisablePlayerVisibilty();
+    }
+    public void DisablePlayerVisibilty()
+    {
+        cinemachineBrain.cullingMask = defaultCullingMask;
     }
     public void OnAnimationReturnCamera()
     {
