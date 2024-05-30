@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
     private PlayerHealth playerHealth; // Reference to PlayerHealth component
     private Animator animator;
     private Vector3 lastKnownPos; //Last known position of the player
+    public int enemyType;
 
 
     public NavMeshAgent Agent { get => agent; }
