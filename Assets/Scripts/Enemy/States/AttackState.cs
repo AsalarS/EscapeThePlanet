@@ -31,8 +31,10 @@ public class AttackState : BaseState
             {
                 if (enemy.enemyType == 0) //IF enemy is not a shooter, 
                 {
+                    float DistanceFromPlayer = Vector3.Distance(enemy.Player.transform.position, enemy.Agent.nextPosition);
                     enemy.Agent.speed = 4f;
                     ChasePlayer();
+                    
                 }
                 else //IF enemy is a shooter
                 {
