@@ -7,14 +7,9 @@ public class AlienTakedown : EnemyAnimation
 
     protected override void Start()
     {
-        XPAmount = 25;
+        XPAmount = 25; //set the default xp value given upon death
         maxHealth = 100f; //set the health for the enemy
-        currentHealth = maxHealth;
-        isStaggered = false;
-        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();//get player component
-        playerAnimator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();//get player component
-        enemyAnimator = GetComponent<Animator>();
-        SetRagdollActive(false);
+        SharedStart(); //set the rest of the components
     }
 
     protected override void Update()

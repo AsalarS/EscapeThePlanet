@@ -27,6 +27,18 @@ public abstract class EnemyAnimation : MonoBehaviour
 
     // Start is called before the first frame update
     protected abstract void Start();
+    /// <summary>
+    /// This method contains the shared elements to be called with the childs class start method
+    /// </summary>
+    protected void SharedStart()
+    {
+        currentHealth = maxHealth;
+        isStaggered = false;
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();//get player component
+        playerAnimator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();//get player component
+        enemyAnimator = GetComponent<Animator>();
+        SetRagdollActive(false);
+    }
     protected abstract void Update();
     
     /// <summary>
@@ -38,10 +50,10 @@ public abstract class EnemyAnimation : MonoBehaviour
     
     /// <summary>
     ///get the nearest target for the player to transform to,
-    ///the enemy will have four targets srrounding him: front,left,right and back
-    ///this is for choosing one of four animations to play depending on the player's location
+    ///the enemy will have four targets srrounding him: front,left,right and back. <br></br>
+    ///This is for choosing one of four animations to play depending on the player's location
     /// </summary>
-    /// <param name="playerPosition"></param>
+    /// <param name="playerPosition">The player's current position</param>
     /// <returns>The position of the target for player to transform to</returns>
 
     protected (string, Transform) GetNearestTransferTarget(Vector3 playerPosition)
@@ -66,9 +78,9 @@ public abstract class EnemyAnimation : MonoBehaviour
     }
 
     /// <summary>
-    /// calculate the distance between the player when he tries to takedown the enemy during staggered state
+    /// calculate the distance between the player and enemy when he tries to takedown the enemy during staggered state
     /// </summary>
-    /// <param name="playerTransform"></param>
+    /// <param name="playerTransform">Player's current position</param>
     /// <returns>True if the player is in range, false if not</returns>
     protected bool IsPlayerInRange(Transform playerTransform)
     {
