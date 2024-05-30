@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System;
 public class Path : MonoBehaviour
 {
 
@@ -50,4 +51,8 @@ public class Path : MonoBehaviour
             DrawPath();
     }
 
+    public static string GetFileName(string path)
+    {
+        throw new NotImplementedException();
+    }
 }
