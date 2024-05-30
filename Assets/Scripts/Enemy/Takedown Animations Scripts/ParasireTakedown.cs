@@ -4,6 +4,18 @@ using UnityEngine;
 
 public class ParasireTakedown : EnemyAnimation
 {
+
+    protected override void Start()
+    {
+        XPAmount = 25;
+        maxHealth = 250f;
+        currentHealth = maxHealth;
+        isStaggered = false;
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();//get player component
+        playerAnimator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();//get player component
+        enemyAnimator = GetComponent<Animator>();
+        SetRagdollActive(false);
+    }
     // Update is called once per frame
     protected override void Update()
     {
@@ -73,7 +85,7 @@ public class ParasireTakedown : EnemyAnimation
     /// </summary>
     public void ParasiteActivateRagdollAndLaunch()
     {
-        
+        XPAmount += 50;
         // Activate the ragdoll physics
         SetRagdollActive(true);
         enemyAnimator.enabled = false;
@@ -81,10 +93,10 @@ public class ParasireTakedown : EnemyAnimation
         // Apply a launch force to the enemy
         Vector3 launchDirection = -transform.forward + transform.up;
         addForce(launchForce, launchDirection);
-        Die();
+        Die(XPAmount);
     }public void ParasiteActivateRagdollAndLaunchTwo()
     {
-        
+        XPAmount += 50;
         // Activate the ragdoll physics
         SetRagdollActive(true);
         enemyAnimator.enabled = false;
@@ -92,10 +104,10 @@ public class ParasireTakedown : EnemyAnimation
         // Apply a launch force to the enemy
         Vector3 launchDirection = transform.forward + -transform.up; //Launch in the backward and upward direction of the enemy's transform
         addForce(launchForce, launchDirection);
-        Die();
+        Die(XPAmount);
     }public void ParasiteActivateRagdollAndLaunchThree()
     {
-        
+        XPAmount += 50;
         // Activate the ragdoll physics
         SetRagdollActive(true);
         enemyAnimator.enabled = false;
@@ -103,11 +115,11 @@ public class ParasireTakedown : EnemyAnimation
         // Apply a launch force to the enemy
         Vector3 launchDirection = -transform.forward; //Launch in the backward and upward direction of the enemy's transform
         addForce(launchForce, launchDirection);
-        Die();
+        Die(XPAmount);
     }
     public void ParasiteActivateRagdollAndLaunchFour()
     {
-
+        XPAmount += 50;
         // Activate the ragdoll physics
         SetRagdollActive(true);
         enemyAnimator.enabled = false;
@@ -115,6 +127,6 @@ public class ParasireTakedown : EnemyAnimation
         // Apply a launch force to the enemy
         Vector3 launchDirection = transform.forward + transform.up; //Launch in the backward and upward direction of the enemy's transform
         addForce(launchForce, launchDirection);
-        Die();
+        Die(XPAmount);
     }
 }

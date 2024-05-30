@@ -4,8 +4,20 @@ using UnityEngine;
 
 public class AlienTakedown : EnemyAnimation
 {
-    
-        protected override void Update()
+
+    protected override void Start()
+    {
+        XPAmount = 25;
+        maxHealth = 100f; //set the health for the enemy
+        currentHealth = maxHealth;
+        isStaggered = false;
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();//get player component
+        playerAnimator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();//get player component
+        enemyAnimator = GetComponent<Animator>();
+        SetRagdollActive(false);
+    }
+
+    protected override void Update()
         {
             if (currentHealth <= lowHealth) //if enemy reached low health
             {
@@ -71,25 +83,25 @@ public class AlienTakedown : EnemyAnimation
         }
     public void AlienActivateRagdollAndLaunch()
     {
-
+        XPAmount += 50;
         // Activate the ragdoll physics
         SetRagdollActive(true);
         enemyAnimator.enabled = false;
         float launchForce = 100f;
         Vector3 launchDirection = transform.forward;
         addForce(launchForce, launchDirection);
-        Die();
+        Die(XPAmount);
     }
     public void AlienActivateRagdollAndLaunchTwo()
     {
-
+        XPAmount += 50;
         // Activate the ragdoll physics
         SetRagdollActive(true);
         enemyAnimator.enabled = false;
         float launchForce = 70f;
         Vector3 launchDirection = -transform.right;
         addForce(launchForce, launchDirection);
-        Die();
+        Die(XPAmount);
     }
 }
 

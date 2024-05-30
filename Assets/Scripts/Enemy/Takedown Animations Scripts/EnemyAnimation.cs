@@ -9,8 +9,8 @@ using UnityEngine;
 public abstract class EnemyAnimation : MonoBehaviour
 {
 
-    public float maxHealth = 100f; //full health
-    public float lowHealth = 20f; //critical health
+    public float maxHealth { get; set; } //full health
+    public float lowHealth { get; set; } = 40f; //critical health
     public float takedownRange = 2f; //the range of the takedown initial
     protected Animator enemyAnimator; //enemy animator reference
     protected Animator playerAnimator; //player animator reference
@@ -19,22 +19,14 @@ public abstract class EnemyAnimation : MonoBehaviour
     public Transform[] transferTargets; //for transfering the player to the correct position
     protected CharacterController playerController; //to disable the player movement during the animation
     protected bool isAnimating = false; //to prevent multiple takedowns in the same place
-    protected string nearestTargetName;
+    protected string nearestTargetName; //to transfer the player to one of the four objects' name
     [HideInInspector]public Rigidbody[] ragdollRigidbodies; // Array of rigidbodies representing the enemy's body parts
     [HideInInspector]public Collider[] ragdollColliders; // Array of Colliders representing the enemy's body parts
+    public int XPAmount { get; set; }
 
-    
 
     // Start is called before the first frame update
-    void Start()
-    {
-        currentHealth = maxHealth;
-        isStaggered = false;
-        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();//get player component
-        playerAnimator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();//get player component
-        enemyAnimator = GetComponent<Animator>();
-        SetRagdollActive(false);
-    }
+    protected abstract void Start();
     protected abstract void Update();
     
     /// <summary>
@@ -91,18 +83,20 @@ public abstract class EnemyAnimation : MonoBehaviour
     {
         isStaggered = false;
         enemyAnimator.SetBool("IsStaggered", isStaggered); //stop the staggered animation
-        currentHealth += 75;
+        currentHealth += 75; 
     }
 
     /// <summary>
     /// disable the script
     /// </summary>
-    public void Die()
+    public void Die(int amount)
     {
-        enemyAnimator.enabled = false;
-        SetRagdollActive(true);
-        Destroy(gameObject,10f);
-        //enabled = false;
+        enemyAnimator.enabled = false; //turn off the animator
+        SetRagdollActive(true); //turn on rigidbody components for ragdoll effect
+        Destroy(gameObject,10f); //remove object from the game
+        
+        ExperienceManager.Instace.AddExperience(amount);
+
     }
     /// <summary>
     /// Activate or deactivate the ragdoll component on the enemy body
