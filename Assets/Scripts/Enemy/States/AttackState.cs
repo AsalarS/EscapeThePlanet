@@ -11,10 +11,21 @@ public class AttackState : BaseState
     public bool chase = false; //if chase state make true, if shoot enemy make false
     public override void Enter()
     {
+        if (!enemy.alertMusic.isPlaying)
+        {
+            enemy.backgroundMusic.Stop();
+            enemy.alertMusic.Play();
+        }
+        
     }
 
     public override void Exit()
     {
+        if (!enemy.backgroundMusic.isPlaying)
+        {
+            enemy.alertMusic.Stop();
+            enemy.backgroundMusic.Play();
+        }
     }
     public void ChasePlayer()
     {
