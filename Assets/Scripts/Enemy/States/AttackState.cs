@@ -39,15 +39,12 @@ public class AttackState : BaseState
                     float DistanceFromPlayer = Vector3.Distance(enemy.Player.transform.position, enemy.Agent.transform.position);
                     enemy.Agent.speed = 4f;
                     ChasePlayer();
-                    if(stopAttackingDistance > DistanceFromPlayer)
-                    {             
+                    if (stopAttackingDistance > DistanceFromPlayer)
+                    {
+
+                        enemy.animator.SetBool("IsPlayerClose", true);
                         
-                        if(Time.deltaTime >= nextattackTime)
-                        {
-                            enemy.animator.SetBool("IsPlayerClose", true);
-                            enemy.PlayerHealth.TakeDamage(5);
-                            nextattackTime = Time.time + 1f / attackRate;
-                        }
+
                     }
                     else
                     {

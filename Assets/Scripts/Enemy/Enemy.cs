@@ -112,6 +112,11 @@ public class Enemy : MonoBehaviour
         return false;
     }
 
+    public void DamagePlayer()
+    {
+        PlayerHealth.TakeDamage(5);
+    }
+
     
 
 
