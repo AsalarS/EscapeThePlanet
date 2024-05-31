@@ -9,15 +9,24 @@ public class PlayerHealth : MonoBehaviour
     private float lerpTimer;
     public float maxHealth = 100f;
     public float chipSpeed = 2f;
+    public float currentXP = 0f;
+    public float maxXP = 1000f;
+    public int currentLvl = 1;
+    [Header("Health UI")]
     public Image frontHealthBar;
     public Image backHealthBar;
     public GameObject bloodyScreen;
-    private int maxXP = 1000 , currentLvl = 1, maxLvl = 5 ;
-    public int currentXP;
+    private int maxLvl = 5 ;
+    private float xpLerpTimer, xpDelayTimer;
+    [Header("XP UI")]
+    public Image frontXPBar;
+    public Image backXPBar;
     // Start is called before the first frame update
     void Start()
     {
         health = maxHealth;
+        frontXPBar.fillAmount = currentXP / maxXP;
+        backXPBar.fillAmount = currentXP / maxXP;
     }
 
     // Update is called once per frame
@@ -25,6 +34,7 @@ public class PlayerHealth : MonoBehaviour
     {
         health = Mathf.Clamp(health,0,maxHealth);
         UpdateHealthUI();
+        UpdateXPUI();
         if (Input.GetKeyDown(KeyCode.B))
         {
             TakeDamage(Random.Range(5, 10));
@@ -32,6 +42,10 @@ public class PlayerHealth : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.N))
         {
             RestoreHealth(Random.Range(5, 10));
+        }
+        if (Input.GetKeyDown(KeyCode.Equals))
+        {
+            IncreaseXP(20);
         }
     }
     public void UpdateHealthUI()
@@ -157,9 +171,15 @@ public class PlayerHealth : MonoBehaviour
     }
     private void HandleExperienceChange(int newXP)
     {
+        IncreaseXP(newXP);
+    }
+    private void IncreaseXP(int newXP)
+    {
         if (currentLvl < maxLvl)
         {
             currentXP += newXP;
+            xpLerpTimer = 0f;
+            xpDelayTimer = 0f;
             if (currentXP > maxXP)
             {
                 levelUp();
@@ -173,5 +193,24 @@ public class PlayerHealth : MonoBehaviour
         currentLvl++;
         currentXP = 0;
         maxXP += 250;
+        frontXPBar.fillAmount = 0f;
+        backXPBar.fillAmount = 0f;
+    }
+
+    public void UpdateXPUI()
+    {
+        float xpFraction = currentXP / maxXP;
+        float FXP = frontXPBar.fillAmount;
+        if (FXP < xpFraction)
+        {
+            xpDelayTimer += Time.deltaTime;
+            backXPBar.fillAmount = xpFraction;
+            if(xpDelayTimer > 3)
+            {
+                xpLerpTimer += Time.deltaTime;
+                float percentComplete = xpLerpTimer / 4;
+                frontXPBar.fillAmount = Mathf.Lerp(FXP, backXPBar.fillAmount, percentComplete);
+            }
+        }
     }
 }
