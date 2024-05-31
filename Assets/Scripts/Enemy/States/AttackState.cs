@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AttackState : BaseState
@@ -8,7 +9,11 @@ public class AttackState : BaseState
     private float losePlayerTimer; //How long the enemy remain in attack state before going back to search
     private float shootTimer;
     public float bulletSpeed = 40f;
-    public bool chase = false; //if chase state make true, if shoot enemy make false
+    public bool chase = false; //if chase state make true, if shoot enemy make false\
+    public float stopAttackingDistance = 2.1f;
+
+    private float attackRate = 2f;
+    float nextattackTime = 0f;
     public override void Enter()
     {
     }
@@ -31,9 +36,22 @@ public class AttackState : BaseState
             {
                 if (enemy.enemyType == 0) //IF enemy is not a shooter, 
                 {
-                    float DistanceFromPlayer = Vector3.Distance(enemy.Player.transform.position, enemy.Agent.nextPosition);
+                    float DistanceFromPlayer = Vector3.Distance(enemy.Player.transform.position, enemy.Agent.transform.position);
                     enemy.Agent.speed = 4f;
                     ChasePlayer();
+                    if(stopAttackingDistance > DistanceFromPlayer)
+                    {                 
+                        if(Time.deltaTime >= nextattackTime)
+                        {
+                            enemy.animator.SetBool("IsPlayerClose", true);
+                            enemy.PlayerHealth.TakeDamage(5);
+                            nextattackTime = Time.time + 1f / attackRate;
+                        }
+                    }
+                    else
+                    {
+                        enemy.animator.SetBool("IsPlayerClose", false);
+                    }
                     
                 }
                 else //IF enemy is a shooter

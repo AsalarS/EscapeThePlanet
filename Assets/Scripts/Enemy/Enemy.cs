@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
     private NavMeshAgent agent;
     private GameObject player;
     private PlayerHealth playerHealth; // Reference to PlayerHealth component
-    private Animator animator;
+    public Animator animator;
     private Vector3 lastKnownPos; //Last known position of the player
     public int enemyType;
 

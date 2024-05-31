@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -802,7 +802,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7293770254847978824, guid: 3a9db68ff81308b48ac4cd0822513761, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.86
+      value: 0.912
       objectReference: {fileID: 0}
     - target: {fileID: 7293770254847978824, guid: 3a9db68ff81308b48ac4cd0822513761, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2967,6 +2967,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b68528a74a7ee1f41b6110709037ad43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  enemyType: 0
   isChasingPlayer: 0
   path: {fileID: 762775037}
   sightDistance: 20
@@ -5351,10 +5353,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b68528a74a7ee1f41b6110709037ad43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 2058411209}
+  enemyType: 0
   isChasingPlayer: 1
   path: {fileID: 329006966}
   sightDistance: 20
-  fieldOFView: 70
+  fieldOFView: 200
   eyeHeight: 0.8
   gunBarrel: {fileID: 1588255798}
   fireRate: 0.6
@@ -5953,6 +5957,11 @@ Transform:
   m_Father: {fileID: 414039352}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &2058411209 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3735878499336714034, guid: 3a9db68ff81308b48ac4cd0822513761, type: 3}
+  m_PrefabInstance: {fileID: 299801385}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2071783390
 GameObject:
   m_ObjectHideFlags: 0
