@@ -40,7 +40,8 @@ public class AttackState : BaseState
                     enemy.Agent.speed = 4f;
                     ChasePlayer();
                     if(stopAttackingDistance > DistanceFromPlayer)
-                    {                 
+                    {             
+                        
                         if(Time.deltaTime >= nextattackTime)
                         {
                             enemy.animator.SetBool("IsPlayerClose", true);
