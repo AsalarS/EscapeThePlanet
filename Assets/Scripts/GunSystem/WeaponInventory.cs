@@ -26,6 +26,7 @@ public class WeaponSwitching : MonoBehaviour
 
     [Header("Keys")]
     [SerializeField] private KeyCode[] keys;
+    [SerializeField] public KeyCode dropKey = KeyCode.G;
 
     [Header("Settings")]
     [SerializeField] private float switchTime;
@@ -73,7 +74,7 @@ public class WeaponSwitching : MonoBehaviour
 
         timeSinceLastSwitch += Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(dropKey))
         {
             DropWeapon();
         }

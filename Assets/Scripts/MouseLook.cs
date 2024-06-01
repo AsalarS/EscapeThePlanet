@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MouseLook : MonoBehaviour
 {
-    public float mouseSensitivity = 100f;
+    public float mouseSensitivity = PlayerPrefs.GetFloat("MouseSensitivity"); //Assign the value from PlayerPrefs to mouseSensitivity
     public Transform playerBody; // This variable needs to be assigned in the Inspector
 
     float xRotation = 0f;
