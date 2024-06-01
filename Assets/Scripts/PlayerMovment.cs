@@ -29,6 +29,7 @@ public class PlayerMovment : MonoBehaviour
     [SerializeField] private Transform rockTarget;
     [SerializeField] private Camera cinemachineBrain;
     private int playerLayer, defaultCullingMask;
+    public AudioSource takedownInitial, punch;
     void Start()
     {
         animator = GetComponent<Animator>(); // a referance for unity's component
@@ -78,6 +79,7 @@ public class PlayerMovment : MonoBehaviour
     }
     public void OnTakedownAnimationStart()
     {
+        takedownInitial.Play();
         IsAnimating = true; //a repeated step - to avoid potential exploits
         EnablePlayerVisibilty();
         virtualCamera.transform.position = virtualCameraSource.position; //transform the VCamera to the source near the player
@@ -131,5 +133,10 @@ public class PlayerMovment : MonoBehaviour
         Vector3 launchDirection = rock.transform.forward;
         rockRigidbody.AddForce(launchDirection * force, ForceMode.Impulse);
         Destroy(rock,6f);
+    }
+
+    public void playPunchSFX()
+    {
+        punch.Play();
     }
 }
