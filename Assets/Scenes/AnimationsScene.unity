@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -158,7 +158,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 155.36044, y: 4.981812}
+  m_AnchoredPosition: {x: 162.96646, y: 545.3818}
   m_SizeDelta: {x: 190.9982, y: 13.3763}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &244099505
@@ -567,10 +567,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1080, y: 1920}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -636,7 +636,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 155.36044, y: 4.9818115}
+  m_AnchoredPosition: {x: 162.96646, y: 545.3818}
   m_SizeDelta: {x: 190.9982, y: 13.3763}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &794210497
@@ -719,7 +719,7 @@ GameObject:
   m_Component:
   - component: {fileID: 873135467}
   m_Layer: 0
-  m_Name: PlayerUI (1)
+  m_Name: LevelAndHealthUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -824,7 +824,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 171.694, y: 29.300014}
+  m_AnchoredPosition: {x: 179.3, y: 569.7}
   m_SizeDelta: {x: 225.952, y: 32.7398}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &966726792
@@ -1236,7 +1236,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 171.694, y: 29.300014}
+  m_AnchoredPosition: {x: 179.29999, y: 569.69995}
   m_SizeDelta: {x: 225.952, y: 32.7398}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1224510536
@@ -1312,7 +1312,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 130, y: 26.5}
+  m_AnchoredPosition: {x: 137.60602, y: 566.89996}
   m_SizeDelta: {x: 309.3379, y: 92.9735}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1280632308
@@ -1427,10 +1427,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1080, y: 1920}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -1496,7 +1496,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 171.694, y: 29.300014}
+  m_AnchoredPosition: {x: 179.29999, y: 569.69995}
   m_SizeDelta: {x: 225.952, y: 32.7398}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1387597488
