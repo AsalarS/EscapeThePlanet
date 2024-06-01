@@ -14,8 +14,6 @@ public class MainMenuScript : MonoBehaviour
     public GameObject earthPlanet; // GameObject of the earth planet model
     public float fadeDuration = 0.5f;  // Duration of the fade effect
     public AudioMixer mainAudioMixer; // Audio mixer for the volume control
-    public AudioMixer musicMixer; // Audio mixer for the music volume control
-    public AudioMixer sfxMixer; // Audio mixer for the sound effects volume control
 
     private Material earthPlanetMaterial; // Material of the earth planet model
 
@@ -70,6 +68,13 @@ public class MainMenuScript : MonoBehaviour
     {
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+    }
+
+    //play game
+    public void PlayGame()
+    {
+        // Load the game scene
+        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
     }
 
     // Function to fade out the main menu and fade in the settings menu
@@ -184,17 +189,6 @@ public class MainMenuScript : MonoBehaviour
         mainAudioMixer.SetFloat("Volume", volume);
     }
 
-    //Set Music Volume
-    public void SetMusicVolume(float volume)
-    {
-        musicMixer.SetFloat("MusicVolume", volume);
-    }
-
-    //Set SFX Volume
-    public void SetSFXVolume(float volume)
-    {
-        sfxMixer.SetFloat("SFXVolume", volume);
-    }
 
     //set fullscreen
     public void SetFullscreen(bool isFullscreen)

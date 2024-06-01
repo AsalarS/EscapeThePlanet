@@ -179,7 +179,7 @@ public abstract class EnemyAnimation : MonoBehaviour
             // If the enemy's health drops to zero or below, call Die()
             if (currentHealth <= 0)
             {
-                Die();
+                Die(XPAmount);
             }
             else
             {
