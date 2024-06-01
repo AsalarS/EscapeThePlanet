@@ -30,6 +30,7 @@ public class PlayerMovment : MonoBehaviour
     [SerializeField] private Camera cinemachineBrain;
     private int playerLayer, defaultCullingMask;
     public AudioSource takedownInitial, punch;
+    public bool HasToken { get; set; } = false;
     void Start()
     {
         animator = GetComponent<Animator>(); // a referance for unity's component
