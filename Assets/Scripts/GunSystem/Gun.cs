@@ -112,7 +112,10 @@ public class GunSystem : MonoBehaviour
         }
 
         //Graphics
-        var muzzleFlashEffect =Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
+        Quaternion gunRotation = this.transform.rotation;
+        var muzzleFlashEffect = Instantiate(muzzleFlash, attackPoint.position, gunRotation); //TODO: Fix position
+        muzzleFlashEffect.transform.Rotate(0, -90, 0);
+        muzzleFlashEffect.transform.SetParent(this.transform);
         StartCoroutine(destroyEffect(1f, muzzleFlashEffect));
 
         bulletsLeft--;

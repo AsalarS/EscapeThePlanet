@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MouseLook : MonoBehaviour
 {
-    public float mouseSensitivity = PlayerPrefs.GetFloat("MouseSensitivity"); //Assign the value from PlayerPrefs to mouseSensitivity
+    public float mouseSensitivity = 100f; //Assign the value from PlayerPrefs to mouseSensitivity
     public Transform playerBody; // This variable needs to be assigned in the Inspector
 
     float xRotation = 0f;
@@ -13,7 +13,8 @@ public class MouseLook : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-    }
+        mouseSensitivity = PlayerPrefs.GetFloat("MouseSensitivity", 100f); // Get the value from PlayerPrefs
+    } 
 
     // Update is called once per frame
     void Update()

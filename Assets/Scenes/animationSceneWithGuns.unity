@@ -3427,9 +3427,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1842419595647158731, guid: 1c085ad95b9debf42b2966f42c01f6cd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 5.2591553
+      objectReference: {fileID: 0}
+    - target: {fileID: 1842419595647158731, guid: 1c085ad95b9debf42b2966f42c01f6cd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -478.732
+      objectReference: {fileID: 0}
+    - target: {fileID: 3516276958293865291, guid: 1c085ad95b9debf42b2966f42c01f6cd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -283.00006
+      objectReference: {fileID: 0}
+    - target: {fileID: 3516276958293865291, guid: 1c085ad95b9debf42b2966f42c01f6cd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -480.59998
+      objectReference: {fileID: 0}
     - target: {fileID: 4357721363193971429, guid: 1c085ad95b9debf42b2966f42c01f6cd, type: 3}
       propertyPath: m_Name
       value: PlayerUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 4679969789337721244, guid: 1c085ad95b9debf42b2966f42c01f6cd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 774
+      objectReference: {fileID: 0}
+    - target: {fileID: 4679969789337721244, guid: 1c085ad95b9debf42b2966f42c01f6cd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -496
+      objectReference: {fileID: 0}
+    - target: {fileID: 6659998174543644343, guid: 1c085ad95b9debf42b2966f42c01f6cd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -250.00006
+      objectReference: {fileID: 0}
+    - target: {fileID: 6659998174543644343, guid: 1c085ad95b9debf42b2966f42c01f6cd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -496
       objectReference: {fileID: 0}
     - target: {fileID: 8566957084287048674, guid: 1c085ad95b9debf42b2966f42c01f6cd, type: 3}
       propertyPath: m_UiScaleMode
@@ -5247,6 +5279,7 @@ MonoBehaviour:
   virtualCameraLook: {fileID: 4012826893955470169}
   rockPrefab: {fileID: 3083452775880519599, guid: 0e2e79b4a84fc89409a3a32a9d467865, type: 3}
   rockTarget: {fileID: 2125427823680273717}
+  WeaponInventory: {fileID: 732636363}
 --- !u!114 &4221038948278840977
 MonoBehaviour:
   m_ObjectHideFlags: 3

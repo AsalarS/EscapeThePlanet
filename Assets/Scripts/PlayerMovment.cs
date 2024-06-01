@@ -27,6 +27,7 @@ public class PlayerMovment : MonoBehaviour
     [HideInInspector] public static bool IsAnimating { get; set; }// to prevent multiple takedowns in the same location and time
     [SerializeField] private GameObject rockPrefab;
     [SerializeField] private Transform rockTarget;
+    [SerializeField] public GameObject WeaponInventory;
     void Start()
     {
         animator = GetComponent<Animator>(); // a referance for unity's component
@@ -85,6 +86,13 @@ public class PlayerMovment : MonoBehaviour
         mouseLook.transform.eulerAngles = cameraEulerAngles;
         mouseLook.enabled = false; //disable camera rotation
         virtualCamera.Priority = 21; //transfer view to VCamera
+
+        //Enable gun
+        if (WeaponInventory.GetComponent<WeaponSwitching>() != null)
+        {
+            WeaponSwitching weaponInventory = WeaponInventory.GetComponent<WeaponSwitching>();
+            weaponInventory.DisableGun();
+        }
     }
     public void OnTakedownAnimationEnd()
     {
@@ -92,6 +100,13 @@ public class PlayerMovment : MonoBehaviour
         animator.applyRootMotion = false; //disable root motion
         controller.enabled = true; //enable movement
         mouseLook.enabled = true; //enable camera rotation
+
+        //Disable gun
+        if (WeaponInventory.GetComponent<WeaponSwitching>() != null)
+        {
+            WeaponSwitching weaponInventory = WeaponInventory.GetComponent<WeaponSwitching>();
+            weaponInventory.EnableGun();
+        }
     }
     public void OnAnimationReturnCamera()
     {
