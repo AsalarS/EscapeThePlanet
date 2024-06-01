@@ -10,8 +10,7 @@ using Cinemachine;
 public class GunSystem : MonoBehaviour
 {
     //Gun stats
-    public int damage;
-    public float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots;
+    public float damage, timeBetweenShooting, spread, range, reloadTime, timeBetweenShots;
     public int magazineSize, bulletsPerTap;
     public bool allowButtonHold;
     int bulletsLeft, bulletsShot;
@@ -33,6 +32,12 @@ public class GunSystem : MonoBehaviour
     //spawn postion
     public Vector3 spawnPos;
 
+
+    //Audio 
+    public AudioSource audio;
+    public AudioClip shootSound;
+    public AudioClip reloadSound;
+    public AudioClip equipSound;
     //Weapon holder animator
     public Animator animator;
 
@@ -82,24 +87,40 @@ public class GunSystem : MonoBehaviour
         //Calculate Direction with Spread
         Vector3 direction = fpsCam.transform.forward + new Vector3(x, y, 0);
 
+        Debug.DrawRay(fpsCam.transform.position, direction * range, Color.red, 1.0f);
+
+        //Play Audio
+        if (audio != null && shootSound != null) audio.PlayOneShot(shootSound);
+
         //RayCast
         if (Physics.Raycast(fpsCam.transform.position, direction, out rayHit, range, whatIsEnemy))
         {
-            Debug.Log(rayHit.collider.name);
+            Debug.Log("Raycast hit: " + rayHit.collider.name);
 
             if (rayHit.collider.CompareTag("Enemy"))
             {
-                /*rayHit.collider.GetComponent<ShootingAi>().TakeDamage(damage);*/
-                /*IDamageable damageable = rayHit.collider.GetComponent<IDamageable>();
-                damageable?.TakeDamage(damage);*/
+                EnemyAnimation enemy = rayHit.collider.GetComponent<EnemyAnimation>();
+                if (enemy != null)
+                {
+                    enemy.TakeDamage(damage);
+                }
+
             }
+
+            var bulletHoleEffect = Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.Euler(0, 180, 0));
+            StartCoroutine(destroyEffect(1f, bulletHoleEffect));
+        }
+        else
+        {
+            Debug.Log("Raycast did not hit anything.");
         }
 
         //Graphics
-        var bulletHoleeffect = Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.Euler(0, 180, 0));
-        var muzzleFlashEffect =Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
+        Quaternion gunRotation = this.transform.rotation;
+        var muzzleFlashEffect = Instantiate(muzzleFlash, attackPoint.position, gunRotation); //TODO: Fix position
+        muzzleFlashEffect.transform.Rotate(0, -90, 0);
+        muzzleFlashEffect.transform.SetParent(this.transform);
         StartCoroutine(destroyEffect(1f, muzzleFlashEffect));
-        StartCoroutine(destroyEffect(1f, bulletHoleeffect));
 
         bulletsLeft--;
         bulletsShot--;
@@ -118,6 +139,8 @@ public class GunSystem : MonoBehaviour
         reloading = true;
         animator.SetBool("Reloading", reloading);
         Invoke("ReloadFinished", reloadTime);
+        //Play Audio
+        if (audio != null && reloadSound != null) audio.PlayOneShot(reloadSound);
     }
     private void ReloadFinished()
     {
