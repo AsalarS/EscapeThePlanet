@@ -28,11 +28,18 @@ public class PlayerMovment : MonoBehaviour
     [SerializeField] private GameObject rockPrefab;
     [SerializeField] private Transform rockTarget;
     [SerializeField] public GameObject WeaponInventory;
+    [SerializeField] private Camera cinemachineBrain;
+    private int playerLayer, defaultCullingMask;
+    public AudioSource takedownInitial, punch;
+    public bool HasToken { get; set; } = false;
+
     void Start()
     {
         animator = GetComponent<Animator>(); // a referance for unity's component
         //playerMovment = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovment>();
         mouseLook = GameObject.FindGameObjectWithTag("FPSCamera").GetComponent<MouseLook>();
+        playerLayer = LayerMask.NameToLayer("Player");
+        defaultCullingMask = cinemachineBrain.cullingMask;
     }
 
     // Update is called once per frame
@@ -75,7 +82,9 @@ public class PlayerMovment : MonoBehaviour
     }
     public void OnTakedownAnimationStart()
     {
+        takedownInitial.Play();
         IsAnimating = true; //a repeated step - to avoid potential exploits
+        EnablePlayerVisibilty();
         virtualCamera.transform.position = virtualCameraSource.position; //transform the VCamera to the source near the player
         virtualCamera.transform.LookAt(virtualCameraLook); //rotate the camera to the source
         animator.applyRootMotion = true; //enable root motion
@@ -94,19 +103,28 @@ public class PlayerMovment : MonoBehaviour
             weaponInventory.DisableGun();
         }
     }
+    public void EnablePlayerVisibilty()
+    {
+        cinemachineBrain.cullingMask |= (1 << playerLayer);
+    }
     public void OnTakedownAnimationEnd()
     {
         IsAnimating = false; //enable takedowns 
         animator.applyRootMotion = false; //disable root motion
         controller.enabled = true; //enable movement
         mouseLook.enabled = true; //enable camera rotation
-
         //Disable gun
         if (WeaponInventory.GetComponent<WeaponSwitching>() != null)
         {
             WeaponSwitching weaponInventory = WeaponInventory.GetComponent<WeaponSwitching>();
             weaponInventory.EnableGun();
         }
+        DisablePlayerVisibilty();
+    }
+    public void DisablePlayerVisibilty()
+    {
+        cinemachineBrain.cullingMask = defaultCullingMask;
+
     }
     public void OnAnimationReturnCamera()
     {
@@ -132,5 +150,10 @@ public class PlayerMovment : MonoBehaviour
         Vector3 launchDirection = rock.transform.forward;
         rockRigidbody.AddForce(launchDirection * force, ForceMode.Impulse);
         Destroy(rock,6f);
+    }
+
+    public void playPunchSFX()
+    {
+        punch.Play();
     }
 }

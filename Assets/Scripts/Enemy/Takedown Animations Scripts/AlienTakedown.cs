@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class AlienTakedown : EnemyAnimation
 {
-    
-        protected override void Update()
+
+    protected override void Start()
+    {
+        XPAmount = 25; //set the default xp value given upon death
+        maxHealth = 100f; //set the health for the enemy
+        SharedStart(); //set the rest of the components
+    }
+
+    protected override void Update()
         {
             if (currentHealth <= lowHealth) //if enemy reached low health
             {
@@ -14,6 +21,9 @@ public class AlienTakedown : EnemyAnimation
             if (isStaggered)
             {
                 enemyAnimator.SetBool("IsStaggered", isStaggered); //start the staggered animation
+            stateMachine.enabled = false;
+            enemy.enabled = false;
+            enemy.Agent.enabled = false;
             }
             if (isStaggered && Input.GetKeyDown("q") && !isAnimating && !PlayerMovment.IsAnimating) // if the enemy is stagered and the takedown button is pressed
             {
@@ -71,25 +81,25 @@ public class AlienTakedown : EnemyAnimation
         }
     public void AlienActivateRagdollAndLaunch()
     {
-
+        XPAmount += 50;
         // Activate the ragdoll physics
         SetRagdollActive(true);
         enemyAnimator.enabled = false;
         float launchForce = 100f;
         Vector3 launchDirection = transform.forward;
         addForce(launchForce, launchDirection);
-        Die();
+        Die(XPAmount);
     }
     public void AlienActivateRagdollAndLaunchTwo()
     {
-
+        XPAmount += 50;
         // Activate the ragdoll physics
         SetRagdollActive(true);
         enemyAnimator.enabled = false;
         float launchForce = 70f;
         Vector3 launchDirection = -transform.right;
         addForce(launchForce, launchDirection);
-        Die();
+        Die(XPAmount);
     }
 }
 

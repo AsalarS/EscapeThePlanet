@@ -32,11 +32,15 @@ public class GunSystem : MonoBehaviour
     //spawn postion
     public Vector3 spawnPos;
 
+
     //Audio 
     public AudioSource audio;
     public AudioClip shootSound;
     public AudioClip reloadSound;
     public AudioClip equipSound;
+    //Weapon holder animator
+    public Animator animator;
+
 
     private void Awake()
     {
@@ -133,6 +137,7 @@ public class GunSystem : MonoBehaviour
     private void Reload()
     {
         reloading = true;
+        animator.SetBool("Reloading", reloading);
         Invoke("ReloadFinished", reloadTime);
         //Play Audio
         if (audio != null && reloadSound != null) audio.PlayOneShot(reloadSound);
@@ -141,6 +146,7 @@ public class GunSystem : MonoBehaviour
     {
         bulletsLeft = magazineSize;
         reloading = false;
+        animator.SetBool("Reloading", reloading);
     }
 
     private IEnumerator destroyEffect(float lifespan, GameObject particle)
