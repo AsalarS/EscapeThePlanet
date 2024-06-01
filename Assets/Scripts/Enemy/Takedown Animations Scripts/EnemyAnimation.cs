@@ -21,9 +21,10 @@ public abstract class EnemyAnimation : MonoBehaviour
     protected bool isAnimating = false; //to prevent multiple takedowns in the same place
     protected string nearestTargetName; //to transfer the player to one of the four objects' name
     [HideInInspector]public Rigidbody[] ragdollRigidbodies; // Array of rigidbodies representing the enemy's body parts
-    [HideInInspector]public Collider[] ragdollColliders; // Array of Colliders representing the enemy's body parts
+    //[HideInInspector]public Collider[] ragdollColliders; // Array of Colliders representing the enemy's body parts
     public int XPAmount { get; set; }
-
+    protected StateMachine stateMachine;
+    protected Enemy enemy;
 
     // Start is called before the first frame update
     protected abstract void Start();
@@ -38,6 +39,8 @@ public abstract class EnemyAnimation : MonoBehaviour
         playerAnimator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();//get player component
         enemyAnimator = GetComponent<Animator>();
         SetRagdollActive(false);
+        stateMachine = GetComponent<StateMachine>();
+        enemy = GetComponent<Enemy>();
     }
     protected abstract void Update();
     
@@ -95,7 +98,11 @@ public abstract class EnemyAnimation : MonoBehaviour
     {
         isStaggered = false;
         enemyAnimator.SetBool("IsStaggered", isStaggered); //stop the staggered animation
-        currentHealth += 75; 
+        currentHealth += 75;
+        stateMachine.enabled = true;
+        enemy.enabled = true;
+        enemy.Agent.enabled = true;
+        stateMachine.ChangeState(new PetrolState());
     }
 
     /// <summary>
@@ -121,17 +128,17 @@ public abstract class EnemyAnimation : MonoBehaviour
         {
             rb.isKinematic = !isActive;
         }
-        foreach (Collider collider in ragdollColliders)
-        { 
-            collider.enabled = isActive; 
-        }
+        //foreach (Collider collider in ragdollColliders)
+        //{ 
+        //    collider.enabled = isActive; 
+        //}
         
     }
     private void Awake()
     {
         // Automatically populate the ragdollRigidbodies array with the rigidbody components of the enemy's body parts
         ragdollRigidbodies = GetComponentsInChildren<Rigidbody>();
-        ragdollColliders = GetComponentsInChildren<Collider>();
+        //ragdollColliders = GetComponentsInChildren<Collider>();
         
     }
     /// <summary>
