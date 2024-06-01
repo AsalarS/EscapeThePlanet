@@ -113,9 +113,9 @@ public class Enemy : MonoBehaviour
         return false;
     }
 
-    public void DamagePlayer()
+    public void DamagePlayer(int damage)
     {
-        PlayerHealth.TakeDamage(5);
+        PlayerHealth.TakeDamage(damage);
     }
 
 
