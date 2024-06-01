@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AttackState : BaseState
@@ -7,8 +8,12 @@ public class AttackState : BaseState
     private float moveTimer; //Make the agent move slightly to make the accuracy less 
     private float losePlayerTimer; //How long the enemy remain in attack state before going back to search
     private float shootTimer;
-    public float bulletSpeed =40f;
-    public bool chase = false; //if chase state make true, if shoot enemy make false
+    public float bulletSpeed = 40f;
+    public bool chase = false; //if chase state make true, if shoot enemy make false\
+    public float stopAttackingDistance = 2.1f;
+
+    private float attackRate = 2f;
+    float nextattackTime = 0f;
     public override void Enter()
     {
         if (!enemy.alertMusic.isPlaying)
@@ -37,9 +42,31 @@ public class AttackState : BaseState
     {
         if (enemy.CanSeePlayer())
         {
-            
-                if (!enemy.PlayerHealth.IsDead())
+
+            if (!enemy.PlayerHealth.IsDead())
+            {
+                if (enemy.enemyType == 0) //IF enemy is not a shooter, 
                 {
+                    float DistanceFromPlayer = Vector3.Distance(enemy.Player.transform.position, enemy.Agent.transform.position);
+                    enemy.Agent.speed = 4f;
+                    ChasePlayer();
+                    if (stopAttackingDistance > DistanceFromPlayer)
+                    {
+
+                        enemy.animator.SetBool("IsPlayerClose", true);
+
+
+                    }
+                    else
+                    {
+                        enemy.animator.SetBool("IsPlayerClose", false);
+                    }
+
+                }
+                else //IF enemy is a shooter
+                {
+
+
                     // Player is visible and alive, perform attack actions
 
                     //Lock the lose player timer and increment move timer and shot timer
@@ -59,7 +86,7 @@ public class AttackState : BaseState
                         moveTimer = 0;
                     }
                 }
-            enemy.LastKnownPos = enemy.Player.transform.position;
+                enemy.LastKnownPos = enemy.Player.transform.position;
             }
             else //Player cant be seen
             {
@@ -75,8 +102,8 @@ public class AttackState : BaseState
                 // Switch to patrol state
                 stateMachine.ChangeState(new PetrolState());
             }
-        
-        
+
+        }
     }
 
 
@@ -95,7 +122,7 @@ public class AttackState : BaseState
         GameObject bullet = GameObject.Instantiate(Resources.Load("Prefab/Bulet") as GameObject, gunbarrel.position, gunbarrel.rotation);
 
         // Add force to the bullet in the direction of the gun barrel
-        bullet.GetComponent<Rigidbody>().velocity = Quaternion.AngleAxis(Random.Range(0f,0f),Vector3.up) * gunbarrel.forward * bulletSpeed; //The higher the number the less the accurate
+        bullet.GetComponent<Rigidbody>().velocity = Quaternion.AngleAxis(Random.Range(0f, 0f), Vector3.up) * gunbarrel.forward * bulletSpeed; //The higher the number the less the accurate
 
         shootTimer = 0;
     }
@@ -104,12 +131,12 @@ public class AttackState : BaseState
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

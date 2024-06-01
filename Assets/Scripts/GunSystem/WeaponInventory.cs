@@ -26,6 +26,7 @@ public class WeaponSwitching : MonoBehaviour
 
     [Header("Keys")]
     [SerializeField] private KeyCode[] keys;
+    [SerializeField] public KeyCode dropKey = KeyCode.G;
 
     [Header("Settings")]
     [SerializeField] private float switchTime;
@@ -73,7 +74,7 @@ public class WeaponSwitching : MonoBehaviour
 
         timeSinceLastSwitch += Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(dropKey))
         {
             DropWeapon();
         }
@@ -324,4 +325,41 @@ public class WeaponSwitching : MonoBehaviour
             Debug.LogError("Invalid weapon index for selector: " + weaponIndex);
         }
     }
+
+    // Enable the gun for takedown animation
+    internal void EnableGun()
+    {
+        if (weapons[selectedWeapon] != null)
+        {
+            // Activate the current equipped gun
+            weapons[selectedWeapon].gameObject.SetActive(true);
+
+            // Optionally, re-enable the gun's script if it was disabled
+            GunSystem gunSystem = weapons[selectedWeapon].GetComponent<GunSystem>();
+            if (gunSystem != null)
+            {
+                gunSystem.enabled = true;
+            }
+        }
+    }
+
+
+    // Disable the gun for takedown animation
+    internal void DisableGun()
+    {
+        if (weapons[selectedWeapon] != null)
+        {
+            // Deactivate the current equipped gun
+            weapons[selectedWeapon].gameObject.SetActive(false);
+
+            // Optionally, disable the gun's script if it was enabled
+            GunSystem gunSystem = weapons[selectedWeapon].GetComponent<GunSystem>();
+            if (gunSystem != null)
+            {
+                gunSystem.enabled = false;
+            }
+        }
+    }
+
+
 }

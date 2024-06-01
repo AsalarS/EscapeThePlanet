@@ -12,10 +12,13 @@ public class Enemy : MonoBehaviour
     private NavMeshAgent agent;
     private GameObject player;
     private PlayerHealth playerHealth; // Reference to PlayerHealth component
-    private Animator animator;
+    public Animator animator;
     private Vector3 lastKnownPos; //Last known position of the player
     public AudioSource backgroundMusic; // The AudioSource component playing the background music
     public AudioSource alertMusic; // The AudioSource component playing the alert music
+
+    public int enemyType;
+
 
 
     public NavMeshAgent Agent { get => agent; }
@@ -31,7 +34,7 @@ public class Enemy : MonoBehaviour
     [Header("Sight Values")]
     public float sightDistance = 20f; //Enemy sight
     public float fieldOFView = 85f; //Enemy FOV
-    public float eyeHeight =1.0f;
+    public float eyeHeight = 1.0f;
 
     [Header("Gun Values")]
     public Transform gunBarrel;
@@ -63,7 +66,8 @@ public class Enemy : MonoBehaviour
     {
         CanSeePlayer();
         currentState = stateMachine.activeState.ToString();
-        if(agent.velocity.magnitude > 0.1f ) {
+        if (agent.velocity.magnitude > 0.1f)
+        {
             animator.SetBool("IsWalking", true);
 
         }
@@ -108,12 +112,17 @@ public class Enemy : MonoBehaviour
                 Ray ray = new Ray(transform.position, targetDirection);
                 Debug.DrawRay(ray.origin, ray.direction * sightDistance, Color.red); // Debug draw the ray in red color      
             }
-            }
+        }
 
         return false;
     }
 
-    
+    public void DamagePlayer(int damage)
+    {
+        PlayerHealth.TakeDamage(damage);
+    }
+
+
 
 
 

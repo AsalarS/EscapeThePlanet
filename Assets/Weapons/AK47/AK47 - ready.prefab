@@ -149,7 +149,7 @@ Transform:
   - {fileID: 406303169831540483}
   - {fileID: 2014696395408236322}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3080725868370885528
 MonoBehaviour:
@@ -160,7 +160,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4656964388669990904}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbe4111ac40660147ad318103a8cb1d4, type: 3}
+  m_Script: {fileID: 11500000, guid: 3fd5a7484c290fb428b126c2fbfcc9bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 20
@@ -176,11 +176,12 @@ MonoBehaviour:
   attackPoint: {fileID: 2014696395408236322}
   whatIsEnemy:
     serializedVersion: 2
-    m_Bits: 1
-  muzzleFlash: {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
-  bulletHoleGraphic: {fileID: 100012, guid: b69189a730299704681c21e6ffff2451, type: 3}
+    m_Bits: 0
+  muzzleFlash: {fileID: 0}
+  bulletHoleGraphic: {fileID: 0}
   text: {fileID: 0}
-  spawnPos: {x: 0, y: 0.7590001, z: 0}
+  weaponIcon: {fileID: 0}
+  spawnPos: {x: 0, y: 0, z: 0}
 --- !u!114 &4006684219807903578
 MonoBehaviour:
   m_ObjectHideFlags: 0
