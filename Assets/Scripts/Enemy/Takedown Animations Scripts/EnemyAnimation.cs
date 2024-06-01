@@ -26,6 +26,7 @@ public abstract class EnemyAnimation : MonoBehaviour
     protected StateMachine stateMachine;
     protected Enemy enemy;
 
+
     // Start is called before the first frame update
     protected abstract void Start();
     /// <summary>
@@ -43,14 +44,14 @@ public abstract class EnemyAnimation : MonoBehaviour
         enemy = GetComponent<Enemy>();
     }
     protected abstract void Update();
-    
+
     /// <summary>
     /// Initiate the takedown animations for both, player and enemy
     /// </summary>
     /// <param name="player"></param>
-    protected abstract void PerformTakedown(Transform player,string targetName);
-    
-    
+    protected abstract void PerformTakedown(Transform player, string targetName);
+
+
     /// <summary>
     ///get the nearest target for the player to transform to,
     ///the enemy will have four targets srrounding him: front,left,right and back. <br></br>
@@ -110,6 +111,7 @@ public abstract class EnemyAnimation : MonoBehaviour
     /// </summary>
     public void Die(int amount)
     {
+
         enemyAnimator.enabled = false; //turn off the animator
         SetRagdollActive(true); //turn on rigidbody components for ragdoll effect
         Destroy(gameObject,10f); //remove object from the game
@@ -128,18 +130,20 @@ public abstract class EnemyAnimation : MonoBehaviour
         {
             rb.isKinematic = !isActive;
         }
-        //foreach (Collider collider in ragdollColliders)
-        //{ 
-        //    collider.enabled = isActive; 
-        //}
-        
+
+        /*foreach (Collider collider in ragdollColliders)
+        { 
+            collider.enabled = isActive; 
+        }*/
+
     }
     private void Awake()
     {
         // Automatically populate the ragdollRigidbodies array with the rigidbody components of the enemy's body parts
         ragdollRigidbodies = GetComponentsInChildren<Rigidbody>();
+
         //ragdollColliders = GetComponentsInChildren<Collider>();
-        
+
     }
     /// <summary>
     /// Called by public methods in animation events to apply force
@@ -153,5 +157,35 @@ public abstract class EnemyAnimation : MonoBehaviour
             rb.isKinematic = false;
             rb.AddForce(launchDirection * force, ForceMode.Impulse);
         }
+    }
+
+    /// <summary>
+    /// Applies damage to the enemy.
+    /// </summary>
+    /// <param name="damageAmount">The amount of damage to apply.</param>
+    public void TakeDamage(float damageAmount)
+    {
+        // Reduce current health by the damage amount
+        currentHealth -= damageAmount;
+
+        // Check if the enemy's health has dropped below the critical threshold
+        if (!isStaggered && currentHealth <= lowHealth)
+        {
+            {
+                isStaggered = true;
+                enemyAnimator.SetBool("IsStaggered", isStaggered); // Trigger staggered animation
+            }
+
+            // If the enemy's health drops to zero or below, call Die()
+            if (currentHealth <= 0)
+            {
+                Die();
+            }
+            else
+            {
+                //TODO:  play a hurt animation or sound effect here
+            }
+        }
+
     }
 }

@@ -1,5 +1,8 @@
 using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class MainMenuScript : MonoBehaviour
@@ -10,8 +13,14 @@ public class MainMenuScript : MonoBehaviour
     public CanvasGroup logo; // CanvasGroup of the logo
     public GameObject earthPlanet; // GameObject of the earth planet model
     public float fadeDuration = 0.5f;  // Duration of the fade effect
+    public AudioMixer mainAudioMixer; // Audio mixer for the volume control
+    public AudioMixer musicMixer; // Audio mixer for the music volume control
+    public AudioMixer sfxMixer; // Audio mixer for the sound effects volume control
 
     private Material earthPlanetMaterial; // Material of the earth planet model
+
+    private Resolution[] resolutions; // Array of available screen resolutions
+    public TMPro.TMP_Dropdown resolutionDropdown; // Dropdown for the screen resolution
 
     // Start is called before the first frame update
     void Start()
@@ -29,13 +38,38 @@ public class MainMenuScript : MonoBehaviour
         creditsMenu.interactable = false;
         creditsMenu.blocksRaycasts = false;
 
-        logo.alpha = 1; 
+        logo.alpha = 1;
         logo.interactable = true;
         logo.blocksRaycasts = true;
 
-        // Get the material of the earth planet model
-        earthPlanetMaterial = earthPlanet.GetComponent<Renderer>().material;
-        SetMaterialAlpha(earthPlanetMaterial, 0); // Assuming earthPlanet is hidden at start
+        //Dropdown for resolution
+        resolutions = Screen.resolutions;
+        resolutionDropdown.ClearOptions();
+
+        List<string> options = new List<string>();
+        int currentResolutionIndex = 0;
+        for (int i = 0; i < resolutions.Length; i++)
+        {
+            string option = resolutions[i].width + " x " + resolutions[i].height;
+            options.Add(option);
+
+            if (resolutions[i].width == Screen.currentResolution.width &&
+                               resolutions[i].height == Screen.currentResolution.height)
+            {
+                currentResolutionIndex = i;
+            }
+        }
+
+        resolutionDropdown.AddOptions(options);
+        resolutionDropdown.value = currentResolutionIndex;
+        resolutionDropdown.RefreshShownValue();
+    }
+
+    //set resolution
+    public void SetResolution(int resolutionIndex)
+    {
+        Resolution resolution = resolutions[resolutionIndex];
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
 
     // Function to fade out the main menu and fade in the settings menu
@@ -80,18 +114,6 @@ public class MainMenuScript : MonoBehaviour
     public void ShowLogo()
     {
         StartCoroutine(FadeIn(logo));
-    }
-
-    // Function to fade out the earth planet object
-    public void HideEarthPlanet()
-    {
-        StartCoroutine(FadeOutMaterial(earthPlanetMaterial));
-    }
-
-    // Function to fade in the earth planet object
-    public void ShowEarthPlanet()
-    {
-        StartCoroutine(FadeInMaterial(earthPlanetMaterial));
     }
 
     // Coroutine to fade out a CanvasGroup
@@ -155,4 +177,35 @@ public class MainMenuScript : MonoBehaviour
         color.a = alpha;
         material.color = color;
     }
+
+    //Set Volume
+    public void SetVolume(float volume)
+    {
+        mainAudioMixer.SetFloat("Volume", volume);
+    }
+
+    //Set Music Volume
+    public void SetMusicVolume(float volume)
+    {
+        musicMixer.SetFloat("MusicVolume", volume);
+    }
+
+    //Set SFX Volume
+    public void SetSFXVolume(float volume)
+    {
+        sfxMixer.SetFloat("SFXVolume", volume);
+    }
+
+    //set fullscreen
+    public void SetFullscreen(bool isFullscreen)
+    {
+        Screen.fullScreen = isFullscreen;
+    }
+
+    // Set Mouse Sensitivity
+    public void SetMouseSensitivity(float sensitivity)
+    {
+        PlayerPrefs.SetFloat("MouseSensitivity", sensitivity);
+    }
+
 }
