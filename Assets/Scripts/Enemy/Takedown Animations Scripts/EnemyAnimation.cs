@@ -165,6 +165,7 @@ public abstract class EnemyAnimation : MonoBehaviour
     /// <param name="damageAmount">The amount of damage to apply.</param>
     public void TakeDamage(float damageAmount)
     {
+        Debug.Log("taking damage");
         // Reduce current health by the damage amount
         currentHealth -= damageAmount;
 
@@ -179,7 +180,7 @@ public abstract class EnemyAnimation : MonoBehaviour
             // If the enemy's health drops to zero or below, call Die()
             if (currentHealth <= 0)
             {
-                Die();
+                Die(XPAmount);
             }
             else
             {

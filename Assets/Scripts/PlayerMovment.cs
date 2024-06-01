@@ -156,4 +156,15 @@ public class PlayerMovment : MonoBehaviour
     {
         punch.Play();
     }
+
+    public void OnAnimationDeath()
+    {
+        EnablePlayerVisibilty();
+        virtualCamera.transform.position = virtualCameraSource.position; //transform the VCamera to the source near the player
+        virtualCamera.transform.LookAt(virtualCameraLook); //rotate the camera to the source
+        animator.applyRootMotion = true; //enable root motion
+        controller.enabled = false; //disable movement
+        mouseLook.enabled = false; //disable camera rotation
+        virtualCamera.Priority = 21; //transfer view to VCamera
+    }
 }

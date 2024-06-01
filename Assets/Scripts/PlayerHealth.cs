@@ -149,7 +149,8 @@ public class PlayerHealth : MonoBehaviour
             if (mouseLook != null)
                 mouseLook.enabled = false;
         }
-
+        Animator animator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
+        animator.SetBool("IsDead", true);
         
     }
 
