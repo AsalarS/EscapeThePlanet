@@ -33,6 +33,9 @@ public class GunSystem : MonoBehaviour
     //spawn postion
     public Vector3 spawnPos;
 
+    //Weapon holder animator
+    public Animator animator;
+
 
     private void Awake()
     {
@@ -113,12 +116,14 @@ public class GunSystem : MonoBehaviour
     private void Reload()
     {
         reloading = true;
+        animator.SetBool("Reloading", reloading);
         Invoke("ReloadFinished", reloadTime);
     }
     private void ReloadFinished()
     {
         bulletsLeft = magazineSize;
         reloading = false;
+        animator.SetBool("Reloading", reloading);
     }
 
     private IEnumerator destroyEffect(float lifespan, GameObject particle)
