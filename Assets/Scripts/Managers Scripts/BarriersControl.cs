@@ -6,12 +6,11 @@ using UnityEngine;
 public class BarrierControl : MonoBehaviour
 {
 
-    PlayerMovment player; //player's script reference
-    MeshRenderer barrierRenderer; 
-    public float fadeOutDuration = 2f; //the time it takes for the barrier to fade out 
+    
+    MeshRenderer barrierRenderer; //the barriers mesh to fade out
+    
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovment>(); //find the player script
         barrierRenderer = GetComponent<MeshRenderer>();
     }
 
@@ -19,6 +18,7 @@ public class BarrierControl : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            PlayerMovment player = collision.gameObject.GetComponent<PlayerMovment>(); //get the player script
             if (player.HasToken) //if player collected a token
             {
                 player.HasToken = false; //remove the token
@@ -33,7 +33,8 @@ public class BarrierControl : MonoBehaviour
     }
     IEnumerator FadeAndDestroyBarrier()
     {
-        for (float f = 1; f>= -0.05f; f-=0.05f)
+        //slowly fade out the barrier, then destroy it
+        for (float f = 1; f>= -0.05f; f-=0.05f) 
         {
             Color c = barrierRenderer.material.color;
             c.a = f;

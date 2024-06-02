@@ -88,15 +88,15 @@ public class PlayerMovment : MonoBehaviour
         virtualCamera.transform.position = virtualCameraSource.position; //transform the VCamera to the source near the player
         virtualCamera.transform.LookAt(virtualCameraLook); //rotate the camera to the source
         animator.applyRootMotion = true; //enable root motion
-        controller.enabled = false; //disable movement
+        DisableMovement();
         //reset fps camera position
         Vector3 cameraEulerAngles = mouseLook.transform.eulerAngles;
         cameraEulerAngles.x = 0f;
         mouseLook.transform.eulerAngles = cameraEulerAngles;
-        mouseLook.enabled = false; //disable camera rotation
+        
         virtualCamera.Priority = 21; //transfer view to VCamera
 
-        //Enable gun
+        //Disable gun
         if (WeaponInventory.GetComponent<WeaponSwitching>() != null)
         {
             WeaponSwitching weaponInventory = WeaponInventory.GetComponent<WeaponSwitching>();
@@ -111,8 +111,7 @@ public class PlayerMovment : MonoBehaviour
     {
         IsAnimating = false; //enable takedowns 
         animator.applyRootMotion = false; //disable root motion
-        controller.enabled = true; //enable movement
-        mouseLook.enabled = true; //enable camera rotation
+        EnableMovement();
         //Disable gun
         if (WeaponInventory.GetComponent<WeaponSwitching>() != null)
         {
@@ -166,5 +165,17 @@ public class PlayerMovment : MonoBehaviour
         controller.enabled = false; //disable movement
         mouseLook.enabled = false; //disable camera rotation
         virtualCamera.Priority = 21; //transfer view to VCamera
+    }
+
+    public void DisableMovement()
+    {
+        controller.enabled = false; //disable movement
+        mouseLook.enabled = false; //disable camera rotation
+    }
+
+    public void EnableMovement()
+    {
+        controller.enabled = true;
+        mouseLook.enabled = true;
     }
 }

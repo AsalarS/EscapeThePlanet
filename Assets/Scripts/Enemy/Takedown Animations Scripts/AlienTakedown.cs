@@ -18,6 +18,10 @@ public class AlienTakedown : EnemyAnimation
             {
                 isStaggered = true;
             }
+            if (currentHealth <= 0)
+            {
+            Die(XPAmount);
+            }
             if (isStaggered)
             {
                 enemyAnimator.SetBool("IsStaggered", isStaggered); //start the staggered animation

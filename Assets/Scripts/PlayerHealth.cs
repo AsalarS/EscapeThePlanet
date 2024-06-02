@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    private float health;
+    public float health;
     private float lerpTimer;
     public float maxHealth = 100f;
     public float chipSpeed = 2f;
@@ -138,16 +138,8 @@ public class PlayerHealth : MonoBehaviour
         PlayerMovment playerMovement = GetComponent<PlayerMovment>();
 
         // Disable player movement
-        if (playerMovement != null)
-            playerMovement.enabled = false;
-
-        // Disable mouse look on the main camera
-        Camera mainCamera = Camera.main;
-        if (mainCamera != null)
-        {
-            MouseLook mouseLook = mainCamera.GetComponent<MouseLook>();
-            if (mouseLook != null)
-                mouseLook.enabled = false;
+        if (playerMovement != null) { 
+            playerMovement.DisableMovement();
         }
         Animator animator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
         animator.SetBool("IsDead", true);

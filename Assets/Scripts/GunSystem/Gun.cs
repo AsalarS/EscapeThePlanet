@@ -6,6 +6,7 @@ using System.Collections;
 using Random = UnityEngine.Random;
 using UnityEngine.UI;
 using Cinemachine;
+using Unity.Burst.CompilerServices;
 
 public class GunSystem : MonoBehaviour
 {
@@ -97,12 +98,23 @@ public class GunSystem : MonoBehaviour
         {
             Debug.Log("Raycast hit: " + rayHit.collider.name);
 
-            if (rayHit.collider.CompareTag("Enemy"))
+            if (rayHit.collider.gameObject.CompareTag("Enemy"))
             {
-                EnemyAnimation enemy = rayHit.collider.GetComponent<EnemyAnimation>();
-                if (enemy != null)
+                Transform parent = rayHit.collider.transform.parent;
+
+                // Recursively check the parent hierarchy till it reaches the parent object
+                while (parent != null)
                 {
-                    enemy.TakeDamage(damage);
+                    if (parent.CompareTag("Enemy"))
+                    {
+                        EnemyAnimation enemy = parent.GetComponent<EnemyAnimation>();
+                        if (enemy != null)
+                        {
+                            enemy.TakeDamage(damage);
+                            break; // Exit the loop since we found the "Enemy" object
+                        }
+                    }
+                    parent = parent.parent;
                 }
 
             }
