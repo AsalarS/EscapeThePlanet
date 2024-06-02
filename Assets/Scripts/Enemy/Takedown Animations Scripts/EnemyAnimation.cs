@@ -107,8 +107,9 @@ public abstract class EnemyAnimation : MonoBehaviour
     }
 
     /// <summary>
-    /// disable the script
+    /// Turn off the animator and destroy the object after few seconds
     /// </summary>
+    /// <param name="amount">Amount of XP to award the player </param>
     public void Die(int amount)
     {
 
@@ -165,6 +166,7 @@ public abstract class EnemyAnimation : MonoBehaviour
     /// <param name="damageAmount">The amount of damage to apply.</param>
     public void TakeDamage(float damageAmount)
     {
+        Debug.Log("taking damage");
         // Reduce current health by the damage amount
         currentHealth -= damageAmount;
 
