@@ -960,6 +960,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Parasite Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7c5ed954ee6a4c6408def3b6e2d6cb78, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 1092408308860062549, guid: 7c5ed954ee6a4c6408def3b6e2d6cb78, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.000000019557772
@@ -2718,8 +2722,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cd419eda1dfe9843ad13a3f023e02f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  lowHealth: 20
   takedownRange: 2
   currentHealth: 0
   transferTargets:
@@ -2728,7 +2730,6 @@ MonoBehaviour:
   - {fileID: 9163288944322714776}
   - {fileID: 8949275257054966710}
   ragdollRigidbodies: []
-  launchForce: 100
 --- !u!1 &8557880386728117360 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7657966619581158213, guid: 7c5ed954ee6a4c6408def3b6e2d6cb78, type: 3}

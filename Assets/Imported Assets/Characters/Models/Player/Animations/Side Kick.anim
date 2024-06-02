@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Back Kick
+  m_Name: Side Kick
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -62465,13 +62465,6 @@ AnimationClip:
   m_Events:
   - time: 0.033333335
     functionName: OnTakedownAnimationStart
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.8666667
-    functionName: PlayKickSFX
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
