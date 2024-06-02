@@ -30,7 +30,7 @@ public class PlayerMovment : MonoBehaviour
     [SerializeField] public GameObject WeaponInventory;
     [SerializeField] private Camera cinemachineBrain;
     private int playerLayer, defaultCullingMask;
-    public AudioSource takedownInitial, punch;
+    public AudioSource takedownInitial, punch, kick;
     public bool HasToken { get; set; } = false;
 
     void Start()
@@ -148,7 +148,7 @@ public class PlayerMovment : MonoBehaviour
         float force = 400f;
         Vector3 launchDirection = rock.transform.forward;
         rockRigidbody.AddForce(launchDirection * force, ForceMode.Impulse);
-        Destroy(rock,6f);
+        Destroy(rock,5f);
     }
 
     public void playPunchSFX()
@@ -162,8 +162,7 @@ public class PlayerMovment : MonoBehaviour
         virtualCamera.transform.position = virtualCameraSource.position; //transform the VCamera to the source near the player
         virtualCamera.transform.LookAt(virtualCameraLook); //rotate the camera to the source
         animator.applyRootMotion = true; //enable root motion
-        controller.enabled = false; //disable movement
-        mouseLook.enabled = false; //disable camera rotation
+        DisableMovement();
         virtualCamera.Priority = 21; //transfer view to VCamera
     }
 
@@ -177,5 +176,10 @@ public class PlayerMovment : MonoBehaviour
     {
         controller.enabled = true;
         mouseLook.enabled = true;
+    }
+
+    public void PlayKickSFX()
+    {
+        kick.Play();
     }
 }
