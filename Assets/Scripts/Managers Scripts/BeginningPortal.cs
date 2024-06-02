@@ -1,0 +1,39 @@
+using SojaExiles;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement; // Include the SceneManagement namespace
+
+public class BeginningPortal : MonoBehaviour
+{
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            PlayerMovement player = other.gameObject.GetComponent<PlayerMovement>();
+            if (player != null)
+            {
+                player.enabled = false;
+            }
+
+            // Load the next scene
+            LoadNextScene();
+        }
+    }
+
+    private void LoadNextScene()
+    {
+        // Assuming scenes are in a sequential order
+        int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+
+        // Check if the next scene index is within the valid range
+        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(nextSceneIndex);
+        }
+        else
+        {
+            Debug.LogWarning("Next scene index is out of range. Make sure you have added the scenes in Build Settings.");
+        }
+    }
+}
