@@ -151,6 +151,7 @@ public class PlayerHealth : MonoBehaviour
         }
         Animator animator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
         animator.SetBool("IsDead", true);
+        GetComponent<BlackOut>().StartFade();
         
     }
 

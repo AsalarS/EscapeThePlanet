@@ -14,7 +14,11 @@ public class Enemy : MonoBehaviour
     private PlayerHealth playerHealth; // Reference to PlayerHealth component
     public Animator animator;
     private Vector3 lastKnownPos; //Last known position of the player
+    public AudioSource backgroundMusic; // The AudioSource component playing the background music
+    public AudioSource alertMusic; // The AudioSource component playing the alert music
+
     public int enemyType;
+
 
 
     public NavMeshAgent Agent { get => agent; }

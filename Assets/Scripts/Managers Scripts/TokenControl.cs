@@ -5,6 +5,7 @@ using UnityEngine;
 public class TokenControl : MonoBehaviour
 {
     PlayerMovment player; //player's script reference
+    public AudioSource Token;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovment>(); //find the player script
@@ -16,6 +17,7 @@ public class TokenControl : MonoBehaviour
         {
             player.HasToken = true;
             Destroy(gameObject);
+            Token.Play();
         }
     }
 
