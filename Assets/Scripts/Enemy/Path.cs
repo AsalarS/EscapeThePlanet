@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 using System;
+
 public class Path : MonoBehaviour
 {
-
     public List<Transform> waypoints;
     [SerializeField]
     private bool alwaysDrawPath;
@@ -22,6 +21,7 @@ public class Path : MonoBehaviour
             DrawPath();
         }
     }
+
     public void DrawPath()
     {
         for (int i = 0; i < waypoints.Count; i++)
@@ -29,8 +29,10 @@ public class Path : MonoBehaviour
             GUIStyle labelStyle = new GUIStyle();
             labelStyle.fontSize = 30;
             labelStyle.normal.textColor = debugColour;
+#if UNITY_EDITOR
             if (drawNumbers)
-                Handles.Label(waypoints[i].position, i.ToString(), labelStyle);
+                UnityEditor.Handles.Label(waypoints[i].position, i.ToString(), labelStyle);
+#endif
             //Draw Lines Between Points.
             if (i >= 1)
             {
@@ -39,10 +41,10 @@ public class Path : MonoBehaviour
 
                 if (drawAsLoop)
                     Gizmos.DrawLine(waypoints[waypoints.Count - 1].position, waypoints[0].position);
-
             }
         }
     }
+
     public void OnDrawGizmosSelected()
     {
         if (alwaysDrawPath)
