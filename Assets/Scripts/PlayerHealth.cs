@@ -149,7 +149,7 @@ public class PlayerHealth : MonoBehaviour
             if (mouseLook != null)
                 mouseLook.enabled = false;
         }
-
+        GetComponent<BlackOut>().StartFade();
         
     }
 
