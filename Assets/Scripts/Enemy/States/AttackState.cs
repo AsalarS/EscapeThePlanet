@@ -18,7 +18,7 @@ public class AttackState : BaseState
     {
         if (!enemy.alertMusic.isPlaying)
         {
-            enemy.backgroundMusic.Stop();
+            enemy.backgroundMusic.Pause();
             enemy.alertMusic.Play();
         }
         
