@@ -88,13 +88,14 @@ public class AttackState : BaseState
                 }
                 enemy.LastKnownPos = enemy.Player.transform.position;
             }
-            else //Player cant be seen
+            
+            }
+        else //Player cant be seen
+        {
+            losePlayerTimer += Time.deltaTime;
+            if (losePlayerTimer > 8)
             {
-                losePlayerTimer += Time.deltaTime;
-                if (losePlayerTimer > 8)
-                {
-                    stateMachine.ChangeState(new SearchState());
-                }
+                stateMachine.ChangeState(new SearchState());
             }
 
             if (enemy.PlayerHealth.IsDead()) // Assuming IsDead() returns true if player health is zero or below

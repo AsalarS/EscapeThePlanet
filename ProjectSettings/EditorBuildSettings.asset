@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/temple.unity
     guid: 399a9373a014d6646907fa7bc9aab889
+  - enabled: 1
+    path: Assets/Scenes/MOON.unity
+    guid: f4021bc829b444148a3959ec85eeeceb
   m_configObjects: {}

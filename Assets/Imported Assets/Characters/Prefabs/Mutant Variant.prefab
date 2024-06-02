@@ -482,6 +482,11 @@ CharacterJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!95 &2908470848499977797 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 2222b7183b767414492458c53c653b0b, type: 3}
+  m_PrefabInstance: {fileID: 8734277904305435604}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3178597656975116127 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3086436065929644917, guid: 2222b7183b767414492458c53c653b0b, type: 3}
@@ -1103,12 +1108,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b68528a74a7ee1f41b6110709037ad43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  backgroundMusic: {fileID: 0}
-  alertMusic: {fileID: 0}
+  animator: {fileID: 2908470848499977797}
+  backgroundMusic: {fileID: 4553292087450583404, guid: 7514311ec9a3a364aa47192c22c11563, type: 3}
+  alertMusic: {fileID: 8410394300395207506, guid: e918d77cdb2ca584e90161e4d246ef4f, type: 3}
   enemyType: 0
   isChasingPlayer: 0
-  path: {fileID: 0}
+  path: {fileID: 4729203072532844319, guid: 2cb94a0ef5a933d4a9d84f4c463368dc, type: 3}
   sightDistance: 20
   fieldOFView: 85
   eyeHeight: 1
