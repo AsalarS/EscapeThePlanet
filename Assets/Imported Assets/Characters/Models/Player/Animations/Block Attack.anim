@@ -71038,13 +71038,6 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 2.4666667
-    functionName: PlayKickSFX
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
   - time: 3.0333333
     functionName: OnAnimationReturnCamera
     data: 

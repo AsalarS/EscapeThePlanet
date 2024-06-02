@@ -45,8 +45,8 @@ GameObject:
   - component: {fileID: 894354641813860715}
   - component: {fileID: 8830335552750017343}
   m_Layer: 0
-  m_Name: Ailen
-  m_TagString: Enemy
+  m_Name: 'Ailen '
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -103,8 +103,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
-  backgroundMusic: {fileID: 0}
-  alertMusic: {fileID: 0}
   enemyType: 0
   isChasingPlayer: 1
   path: {fileID: 3954100992164435034, guid: f158cd34b4779e14ab4e9e14cdbcaae9, type: 3}
