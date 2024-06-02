@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
@@ -144,7 +145,18 @@ public class PlayerHealth : MonoBehaviour
         Animator animator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
         animator.SetBool("IsDead", true);
         GetComponent<BlackOut>().StartFade();
-        
+        RestartScene();
+
+
+    }
+
+    public void RestartScene()
+    {
+        // Get the index of the current scene
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        // Reload the current scene
+        SceneManager.LoadScene(currentSceneIndex);
     }
 
 
