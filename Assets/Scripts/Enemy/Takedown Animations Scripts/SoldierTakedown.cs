@@ -76,4 +76,54 @@ public class SoldierTakedown : EnemyAnimation
         }
 
     }
+
+    /// <summary>
+    /// A function used by an animation to launch the enemy
+    /// </summary>
+    public void SoldierActivateRagdollAndLaunch()
+    {
+        XPAmount += 50;
+        // Activate the ragdoll physics
+        SetRagdollActive(true);
+        enemyAnimator.enabled = false;
+        float launchForce = 100f;
+        // Apply a launch force to the enemy
+        Vector3 launchDirection = -transform.forward + transform.up;
+        addForce(launchForce, launchDirection);
+        Die(XPAmount);
+    }
+    public void SoldierActivateRagdollAndLaunchTwo()
+    {
+        XPAmount += 50;
+        // Activate the ragdoll physics
+        SetRagdollActive(true);
+        enemyAnimator.enabled = false;
+        float launchForce = 70f;
+        Vector3 launchDirection = -transform.right;
+        addForce(launchForce, launchDirection);
+        Die(XPAmount);
+    }
+    public void SoldierActivateRagdollAndLaunchThree()
+    {
+        XPAmount += 50;
+        // Activate the ragdoll physics
+        SetRagdollActive(true);
+        enemyAnimator.enabled = false;
+        float launchForce = 100f;
+        // Apply a launch force to the enemy
+        Vector3 launchDirection = transform.forward + transform.up;
+        addForce(launchForce, launchDirection);
+        Die(XPAmount);
+    }
+    public void SoldierActivateRagdollAndLaunchFour()
+    {
+        XPAmount += 50;
+        // Activate the ragdoll physics
+        SetRagdollActive(true);
+        enemyAnimator.enabled = false;
+        float launchForce = 70f;
+        Vector3 launchDirection = transform.right;
+        addForce(launchForce, launchDirection);
+        Die(XPAmount);
+    }
 }
