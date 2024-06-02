@@ -37,6 +37,7 @@ public class WeaponSwitching : MonoBehaviour
 
     [SerializeField] private int selectedWeapon;
     [SerializeField] private float timeSinceLastSwitch;
+    [SerializeField] private Transform holster;
 
 
     private void Start()
@@ -93,7 +94,7 @@ public class WeaponSwitching : MonoBehaviour
         OnWeaponSelected();
 
         // Update the selector position based on the selected weapon
-        /*UpdateSelectorPosition(weaponIndex);*/
+        UpdateSelectorPosition(weaponIndex);
     }
 
     private void OnWeaponSelected() { }
@@ -111,7 +112,7 @@ public class WeaponSwitching : MonoBehaviour
             }
 
             gun.GetComponent<GunSystem>().enabled = true;
-            gun.transform.SetParent(transform);
+            gun.transform.SetParent(holster);
 
             // Set the position and rotation of the gun to the desired position and rotation
             gun.transform.localPosition = gun.GetComponent<GunSystem>().spawnPos;
@@ -205,15 +206,19 @@ public class WeaponSwitching : MonoBehaviour
 
         if (selectedWeapon < 0 || selectedWeapon >= weapons.Length)
         {
-            Debug.LogError("Invalid weapon index: " + selectedWeapon);
+            Debug.Log("Invalid weapon index: " + selectedWeapon);
             return;
         }
 
         // Clear the ammo text
-        GunSystem gunSystem = weapons[selectedWeapon].GetComponent<GunSystem>();
-        if (gunSystem != null)
+        GunSystem gunSystem = null;
+        if (weapons[selectedWeapon] != null)
         {
+            gunSystem = weapons[selectedWeapon].GetComponent<GunSystem>();
             gunSystem.text.text = "";
+
+            // Disable the GunSystem script
+            gunSystem.enabled = false;
         }
 
         // Get the weapon to drop
@@ -248,7 +253,7 @@ public class WeaponSwitching : MonoBehaviour
         else
         {
             // No weapons left, reset the selector position
-            UpdateSelectorPosition(-1); // Assuming -1 is an invalid index that will hide the selector
+            UpdateSelectorPosition(-1);
         }
 
         // Update the inventory display
@@ -322,7 +327,7 @@ public class WeaponSwitching : MonoBehaviour
         }
 
         // Update the selector position based on the current weapon
-        /*UpdateSelectorPosition(selectedWeapon);*/
+        UpdateSelectorPosition(selectedWeapon);
     }
 
     private void UpdateSelectorPosition(int weaponIndex)
@@ -333,7 +338,7 @@ public class WeaponSwitching : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Invalid weapon index for selector: " + weaponIndex);
+            Debug.Log("Invalid weapon index for selector: " + weaponIndex);
         }
     }
 
