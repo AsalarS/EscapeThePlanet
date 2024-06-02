@@ -21,16 +21,12 @@ public class PortalControl : MonoBehaviour
     private void LoadNextScene()
     {
         // Assuming scenes are in a sequential order
-        int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        
 
         // Check if the next scene index is within the valid range
-        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
-        {
-            SceneManager.LoadScene(nextSceneIndex);
-        }
-        else
-        {
-            Debug.LogWarning("Next scene index is out of range. Make sure you have added the scenes in Build Settings.");
-        }
+        
+        
+            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+
     }
 }

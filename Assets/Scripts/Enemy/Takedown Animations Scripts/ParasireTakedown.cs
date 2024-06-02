@@ -25,6 +25,9 @@ public class ParasireTakedown : EnemyAnimation
         if (isStaggered)
         {
             enemyAnimator.SetBool("IsStaggered", isStaggered); //start the staggered animation
+            stateMachine.enabled = false;
+            enemy.enabled = false;
+            enemy.Agent.enabled = false;
         }
         if (isStaggered && Input.GetKeyDown("q") && !isAnimating && !PlayerMovment.IsAnimating) // if the enemy is stagered and the takedown button is pressed
         {
