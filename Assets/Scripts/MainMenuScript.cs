@@ -58,7 +58,7 @@ public class MainMenuScript : MonoBehaviour
             }
         }
 
-        resolutionDropdown.AddOptions(options);
+        /*resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
 
@@ -67,15 +67,15 @@ public class MainMenuScript : MonoBehaviour
         {
             int savedResolutionIndex = PlayerPrefs.GetInt("SelectedResolution");
             SetResolution(savedResolutionIndex);
-        }
+        }*/
     }
 
     //set resolution
     public void SetResolution(int resolutionIndex)
     {
-        Resolution resolution = resolutions[resolutionIndex];
+        /*Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
-        PlayerPrefs.SetInt("SelectedResolution", resolutionIndex); // Save the selected resolution index
+        PlayerPrefs.SetInt("SelectedResolution", resolutionIndex); // Save the selected resolution index*/
     }
 
     //play game

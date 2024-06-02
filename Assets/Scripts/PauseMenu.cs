@@ -27,7 +27,7 @@ public class PauseMenu : MonoBehaviour
         // Debug log to check if playerUI is assigned
         if (playerUI == null)
         {
-            Debug.LogError("playerUI is not assigned in the inspector.");
+            Debug.Log("No player UI is assinged");
         }
     }
 
@@ -64,6 +64,8 @@ public class PauseMenu : MonoBehaviour
     }
 
     public void QuitGame() => Application.Quit();
+
+    public void GoMainMenu() => UnityEngine.SceneManagement.SceneManager.LoadScene(0);
 
     public void TogglePause()
     {
