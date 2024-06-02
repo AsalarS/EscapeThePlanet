@@ -61,6 +61,13 @@ public class MainMenuScript : MonoBehaviour
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
+
+        // Apply saved resolution if exists
+        if (PlayerPrefs.HasKey("SelectedResolution"))
+        {
+            int savedResolutionIndex = PlayerPrefs.GetInt("SelectedResolution");
+            SetResolution(savedResolutionIndex);
+        }
     }
 
     //set resolution
@@ -68,6 +75,7 @@ public class MainMenuScript : MonoBehaviour
     {
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+        PlayerPrefs.SetInt("SelectedResolution", resolutionIndex); // Save the selected resolution index
     }
 
     //play game
@@ -200,6 +208,11 @@ public class MainMenuScript : MonoBehaviour
     public void SetMouseSensitivity(float sensitivity)
     {
         PlayerPrefs.SetFloat("MouseSensitivity", sensitivity);
+    }
+
+    public void OnApplicationQuit()
+    {
+        Application.Quit();
     }
 
 }

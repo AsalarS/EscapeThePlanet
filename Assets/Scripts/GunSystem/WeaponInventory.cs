@@ -229,22 +229,33 @@ public class WeaponSwitching : MonoBehaviour
             weapons[i + 1] = null;
         }
 
-        // If the selected weapon was the last in the array, select the new last
-        if (selectedWeapon == weapons.Length)
+        // Find the first available weapon in the inventory
+        int firstAvailableWeaponIndex = -1;
+        for (int i = 0; i < weapons.Length; i++)
         {
-            selectedWeapon--;
+            if (weapons[i] != null)
+            {
+                firstAvailableWeaponIndex = i;
+                break;
+            }
         }
-        Debug.Log($"Attempting to access weapon at index {selectedWeapon} in an array of length {weapons.Length}");
+
+        // If there are still weapons left, equip the first one
+        if (firstAvailableWeaponIndex != -1)
+        {
+            EquipWeapon(firstAvailableWeaponIndex);
+        }
+        else
+        {
+            // No weapons left, reset the selector position
+            UpdateSelectorPosition(-1); // Assuming -1 is an invalid index that will hide the selector
+        }
 
         // Update the inventory display
         UpdateInventoryDisplay(gunSystem, false);
-        /*UpdateSelectorPosition(selectedWeapon);*/
 
         // Drop the weapon
         Drop(weaponToDrop);
-
-        // Select the next weapon in the inventory
-        EquipWeapon(selectedWeapon);
     }
 
     private void Drop(Transform weaponToDrop)
