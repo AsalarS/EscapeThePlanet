@@ -116,7 +116,7 @@ public abstract class EnemyAnimation : MonoBehaviour
         enemyAnimator.enabled = false; //turn off the animator
         SetRagdollActive(true); //turn on rigidbody components for ragdoll effect
         Destroy(gameObject,10f); //remove object from the game
-        
+        enabled = false;
         ExperienceManager.Instace.AddExperience(amount);
 
     }

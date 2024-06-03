@@ -22,6 +22,8 @@ public class PlayerHealth : MonoBehaviour
     [Header("XP UI")]
     public Image frontXPBar;
     public Image backXPBar;
+    [Header("Audio")]
+    public AudioSource Damage;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,7 +38,7 @@ public class PlayerHealth : MonoBehaviour
         health = Mathf.Clamp(health,0,maxHealth);
         UpdateHealthUI();
         UpdateXPUI();
-        if (Input.GetKeyDown(KeyCode.B))
+        /*if (Input.GetKeyDown(KeyCode.B))
         {
             TakeDamage(Random.Range(5, 10));
         }
@@ -47,7 +49,7 @@ public class PlayerHealth : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Equals))
         {
             IncreaseXP(20);
-        }
+        }*/
     }
     public void UpdateHealthUI()
     {
@@ -80,11 +82,13 @@ public class PlayerHealth : MonoBehaviour
         health -= damage;
         lerpTimer = 0f;
         StartCoroutine(BloodyScreenEffect());
+        Damage.Play();
         if(health <= 0f)
         {
             Debug.Log("player dead");
             IsDead();
             playerDead();
+            
         }
 
     }
@@ -145,19 +149,12 @@ public class PlayerHealth : MonoBehaviour
         Animator animator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
         animator.SetBool("IsDead", true);
         GetComponent<BlackOut>().StartFade();
-        RestartScene();
+        PlayerMovment.IsAnimating = false;
 
 
     }
 
-    public void RestartScene()
-    {
-        // Get the index of the current scene
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
-        // Reload the current scene
-        SceneManager.LoadScene(currentSceneIndex);
-    }
 
 
     public void RestoreHealth(float healAmount)

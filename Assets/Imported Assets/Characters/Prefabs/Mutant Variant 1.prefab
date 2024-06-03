@@ -78,7 +78,7 @@ MonoBehaviour:
   isChasingPlayer: 0
   path: {fileID: 4729203072532844319, guid: 2cb94a0ef5a933d4a9d84f4c463368dc, type: 3}
   sightDistance: 20
-  fieldOFView: 85
+  fieldOFView: 360
   eyeHeight: 1
   gunBarrel: {fileID: 0}
   fireRate: 0

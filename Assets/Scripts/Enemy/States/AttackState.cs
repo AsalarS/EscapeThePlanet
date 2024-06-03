@@ -11,9 +11,10 @@ public class AttackState : BaseState
     public float bulletSpeed = 40f;
     public bool chase = false; //if chase state make true, if shoot enemy make false\
     public float stopAttackingDistance = 2.1f;
-
+    
     private float attackRate = 2f;
     float nextattackTime = 0f;
+
     public override void Enter()
     {
         if (!enemy.alertMusic.isPlaying)
@@ -43,14 +44,14 @@ public class AttackState : BaseState
         if (enemy.CanSeePlayer())
         {
 
-            if (!enemy.PlayerHealth.IsDead())
+            if (!enemy.PlayerHealth.IsDead() && !PlayerMovment.IsAnimating)
             {
                 if (enemy.enemyType == 0) //IF enemy is not a shooter, 
                 {
                     float DistanceFromPlayer = Vector3.Distance(enemy.Player.transform.position, enemy.Agent.transform.position);
                     enemy.Agent.speed = 4f;
                     ChasePlayer();
-                    if (stopAttackingDistance > DistanceFromPlayer)
+                    if (stopAttackingDistance > DistanceFromPlayer &&!PlayerMovment.IsAnimating)
                     {
 
                         enemy.animator.SetBool("IsPlayerClose", true);
@@ -61,7 +62,12 @@ public class AttackState : BaseState
                     {
                         enemy.animator.SetBool("IsPlayerClose", false);
                     }
+                    if (PlayerMovment.IsAnimating)
+                    {
+                        enemy.animator.SetBool("IsPlayerClose", false);
+                        stateMachine.ChangeState(new PetrolState());
 
+                    }
                 }
                 else //IF enemy is a shooter
                 {
@@ -132,7 +138,7 @@ public class AttackState : BaseState
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame

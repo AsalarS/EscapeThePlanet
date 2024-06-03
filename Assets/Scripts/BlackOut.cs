@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class BlackOut : MonoBehaviour
 {
@@ -28,5 +29,13 @@ public class BlackOut : MonoBehaviour
 
         // Ensure the image is completely black at the end.
         fadeImage.color = endColor;
+        
+
+            // Get the index of the current scene
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+            // Reload the current scene
+            SceneManager.LoadScene(currentSceneIndex);
+        
     }
 }

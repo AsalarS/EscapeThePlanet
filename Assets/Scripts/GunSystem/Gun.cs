@@ -88,13 +88,13 @@ public class GunSystem : MonoBehaviour
         //Calculate Direction with Spread
         Vector3 direction = fpsCam.transform.forward + new Vector3(x, y, 0);
 
-        Debug.DrawRay(fpsCam.transform.position, direction * range, Color.red, 1.0f);
+        Debug.DrawRay(transform.position, direction * range, Color.red, 1.0f);
 
         //Play Audio
         if (audio != null && shootSound != null) audio.PlayOneShot(shootSound);
 
         //RayCast
-        if (Physics.Raycast(fpsCam.transform.position, direction, out rayHit, range, whatIsEnemy))
+        if (Physics.Raycast(transform.position, direction, out rayHit, range, whatIsEnemy))
         {
             Debug.Log("Raycast hit: " + rayHit.collider.name);
 

@@ -30,7 +30,7 @@ public class PlayerMovment : MonoBehaviour
     [SerializeField] public GameObject WeaponInventory;
     [SerializeField] private Camera cinemachineBrain;
     private int playerLayer, defaultCullingMask;
-    public AudioSource takedownInitial, punch, kick;
+    public AudioSource takedownInitial, punch, kick, death;
     public bool HasToken { get; set; } = false;
 
     void Start()
@@ -83,7 +83,7 @@ public class PlayerMovment : MonoBehaviour
     public void OnTakedownAnimationStart()
     {
         takedownInitial.Play();
-        IsAnimating = true; //a repeated step - to avoid potential exploits
+        PlayerMovment.IsAnimating = true; //a repeated step - to avoid potential exploits
         EnablePlayerVisibilty();
         virtualCamera.transform.position = virtualCameraSource.position; //transform the VCamera to the source near the player
         virtualCamera.transform.LookAt(virtualCameraLook); //rotate the camera to the source
@@ -109,7 +109,7 @@ public class PlayerMovment : MonoBehaviour
     }
     public void OnTakedownAnimationEnd()
     {
-        IsAnimating = false; //enable takedowns 
+        PlayerMovment.IsAnimating = false; //enable takedowns 
         animator.applyRootMotion = false; //disable root motion
         EnableMovement();
         //Disable gun
@@ -181,5 +181,10 @@ public class PlayerMovment : MonoBehaviour
     public void PlayKickSFX()
     {
         kick.Play();
+    }
+
+    public void PlayDeathSFX()
+    {
+        death.Play();
     }
 }
