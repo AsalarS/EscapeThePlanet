@@ -164,6 +164,7 @@ public class PlayerMovment : MonoBehaviour
         animator.applyRootMotion = true; //enable root motion
         DisableMovement();
         virtualCamera.Priority = 21; //transfer view to VCamera
+        death.Play();
     }
 
     public void DisableMovement()
@@ -183,8 +184,5 @@ public class PlayerMovment : MonoBehaviour
         kick.Play();
     }
 
-    public void PlayDeathSFX()
-    {
-        death.Play();
-    }
+    
 }
