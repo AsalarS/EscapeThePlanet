@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BarrierControl : MonoBehaviour
 {
+    [SerializeField] private Text playerMessage; // Reference to the UI Text element
 
-    
     MeshRenderer barrierRenderer; //the barriers mesh to fade out
-    
+
     private void Start()
     {
         barrierRenderer = GetComponent<MeshRenderer>();
+        
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -26,15 +27,15 @@ public class BarrierControl : MonoBehaviour
             }
             else
             {
-
-                Debug.Log("You need to collect a token to pass the barrier.");
+                playerMessage.text = "You need to collect a token to pass the barrier."; // Display the message
             }
         }
     }
+
     IEnumerator FadeAndDestroyBarrier()
     {
         //slowly fade out the barrier, then destroy it
-        for (float f = 1; f>= -0.05f; f-=0.05f) 
+        for (float f = 1; f >= -0.05f; f -= 0.05f)
         {
             Color c = barrierRenderer.material.color;
             c.a = f;
@@ -44,6 +45,11 @@ public class BarrierControl : MonoBehaviour
 
         // Destroy the barrier after it has fully faded out
         Destroy(gameObject);
+        
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        playerMessage.text = ""; 
+    }
 }
